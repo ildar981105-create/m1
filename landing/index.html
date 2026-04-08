@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrameX — AI 视频创作引擎</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <canvas id="particleBg"></canvas>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <span class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect x="2" y="2" width="28" height="28" rx="8" stroke="url(#logoGrad)" stroke-width="2.5"/>
+                        <path d="M12 10L22 16L12 22V10Z" fill="url(#logoGrad)"/>
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+                                <stop stop-color="#a855f7"/>
+                                <stop offset="1" stop-color="#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </span>
+                <span class="logo-text">FrameX</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">功能</a>
+                <a href="#workflow">工作流</a>
+                <a href="#showcase">案例</a>
+                <a href="#pricing">定价</a>
+            </div>
+            <div class="nav-actions">
+                <a href="../app/index.html" class="btn-ghost">登录</a>
+                <a href="../app/index.html" class="btn-primary-sm">免费开始</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-badge" data-animate="fade-up">
+                <span class="badge-dot"></span>
+                AI Agent 驱动 · 全新视频创作范式
+            </div>
+            <h1 class="hero-title" data-animate="fade-up" data-delay="100">
+                <span class="title-line">让 AI 成为你的</span>
+                <span class="title-line gradient-text">视频创作引擎</span>
+            </h1>
+            <p class="hero-desc" data-animate="fade-up" data-delay="200">
+                一个 Agent，三种超能力。视频译制、直播智能剪辑、AI 生成视频 —— 
+                <br>拖入素材，剩下的交给 FrameX。
+            </p>
+            <div class="hero-actions" data-animate="fade-up" data-delay="300">
+                <a href="../app/index.html" class="btn-primary">
+                    <span>开始创作</span>
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <a href="#showcase" class="btn-outline">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 7L14 10L8 13V7Z" fill="currentColor"/>
+                    </svg>
+                    <span>观看演示</span>
+                </a>
+            </div>
+            <div class="hero-stats" data-animate="fade-up" data-delay="400">
+                <div class="stat">
+                    <span class="stat-num" data-count="50000">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">视频已处理</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-count="120">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">支持语言</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-count="98">0</span><span class="stat-suffix">%</span>
+                    <span class="stat-label">用户满意度</span>
+                </div>
+            </div>
+        </div>
+        <!-- Hero 视觉装饰 -->
+        <div class="hero-visual" data-animate="fade-up" data-delay="400">
+            <div class="hero-mockup">
+                <div class="mockup-toolbar">
+                    <div class="toolbar-dots"><span></span><span></span><span></span></div>
+                    <span class="toolbar-title">FrameX Agent</span>
+                </div>
+                <div class="mockup-body">
+                    <div class="mockup-agent">
+                        <div class="agent-orb">
+                            <div class="orb-ring"></div>
+                            <div class="orb-ring"></div>
+                            <div class="orb-ring"></div>
+                            <div class="orb-core"></div>
+                        </div>
+                        <div class="agent-text">
+                            <span class="typing-text">正在分析您的视频，检测到中文字幕...</span>
+                            <span class="typing-cursor">|</span>
+                        </div>
+                    </div>
+                    <div class="mockup-timeline">
+                        <div class="timeline-track">
+                            <div class="timeline-progress"></div>
+                        </div>
+                        <div class="timeline-markers">
+                            <span class="marker active">擦除字幕</span>
+                            <span class="marker">添加翻译</span>
+                            <span class="marker">生成配音</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能区域 -->
+    <section class="features" id="features">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-tag">核心功能</span>
+            <h2 class="section-title">一个 Agent，<span class="gradient-text">无限可能</span></h2>
+            <p class="section-desc">三大 AI 能力，覆盖视频创作全链路</p>
+        </div>
+        <div class="features-grid">
+            <!-- 视频译制 -->
+            <div class="feature-card feature-card-lg" data-animate="fade-up" data-delay="100">
+                <div class="card-glow card-glow-purple"></div>
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="4" y="8" width="40" height="32" rx="4" stroke="url(#feat1)" stroke-width="2"/>
+                        <path d="M18 20H30M18 26H26" stroke="url(#feat1)" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="38" cy="14" r="8" fill="#a855f7" fill-opacity="0.2" stroke="#a855f7" stroke-width="1.5"/>
+                        <path d="M35 14H41M38 11V17" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="feat1" x1="4" y1="8" x2="44" y2="40">
+                                <stop stop-color="#a855f7"/><stop offset="1" stop-color="#6366f1"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h3 class="feature-title">视频译制</h3>
+                <p class="feature-desc">AI 自动擦除原有字幕、翻译为目标语言、生成自然配音。支持 120+ 语言，让你的内容触达全球观众。</p>
+                <div class="feature-steps">
+                    <div class="step"><span class="step-num">01</span><span>智能擦除原字幕</span></div>
+                    <div class="step"><span class="step-num">02</span><span>AI 翻译 + 添加新字幕</span></div>
+                    <div class="step"><span class="step-num">03</span><span>克隆原声配音</span></div>
+                </div>
+                <div class="feature-tag-row">
+                    <span class="ftag">字幕擦除</span>
+                    <span class="ftag">多语种翻译</span>
+                    <span class="ftag">AI 配音</span>
+                </div>
+            </div>
+            <!-- 直播剪辑 -->
+            <div class="feature-card" data-animate="fade-up" data-delay="200">
+                <div class="card-glow card-glow-blue"></div>
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="6" y="10" width="36" height="28" rx="4" stroke="url(#feat2)" stroke-width="2"/>
+                        <circle cx="24" cy="24" r="6" stroke="url(#feat2)" stroke-width="2"/>
+                        <circle cx="24" cy="24" r="2" fill="#3b82f6"/>
+                        <circle cx="8" cy="12" r="3" fill="#ef4444"/>
+                        <defs>
+                            <linearGradient id="feat2" x1="6" y1="10" x2="42" y2="38">
+                                <stop stop-color="#3b82f6"/><stop offset="1" stop-color="#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h3 class="feature-title">直播智能剪辑</h3>
+                <p class="feature-desc">粘贴直播链接，AI 实时监控并标记高光时刻，自动剪辑出精彩片段合集。</p>
+                <div class="feature-tag-row">
+                    <span class="ftag">实时监控</span>
+                    <span class="ftag">高光标记</span>
+                    <span class="ftag">智能成片</span>
+                </div>
+            </div>
+            <!-- AI 生成视频 -->
+            <div class="feature-card" data-animate="fade-up" data-delay="300">
+                <div class="card-glow card-glow-cyan"></div>
+                <div class="feature-icon">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 4L28 16L40 16L30 24L34 36L24 28L14 36L18 24L8 16L20 16L24 4Z" stroke="url(#feat3)" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="24" cy="24" r="4" fill="#06b6d4" fill-opacity="0.3"/>
+                        <defs>
+                            <linearGradient id="feat3" x1="8" y1="4" x2="40" y2="36">
+                                <stop stop-color="#06b6d4"/><stop offset="1" stop-color="#a855f7"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <h3 class="feature-title">AI 生成视频</h3>
+                <p class="feature-desc">文字描述或上传图片，AI 从零生成高质量视频。文生视频、图生视频，创意无边界。</p>
+                <div class="feature-tag-row">
+                    <span class="ftag">文生视频</span>
+                    <span class="ftag">图生视频</span>
+                    <span class="ftag">风格迁移</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作流展示 -->
+    <section class="workflow" id="workflow">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-tag">极简工作流</span>
+            <h2 class="section-title">三步，<span class="gradient-text">从素材到成片</span></h2>
+            <p class="section-desc">不需要专业技能，AI Agent 帮你搞定一切</p>
+        </div>
+        <div class="workflow-steps">
+            <div class="wf-step" data-animate="fade-up" data-delay="100">
+                <div class="wf-num">01</div>
+                <div class="wf-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <path d="M20 6V22M20 22L28 14M20 22L12 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M6 26V30C6 32.2091 7.79086 34 10 34H30C32.2091 34 34 32.2091 34 30V26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3>上传 / 输入</h3>
+                <p>拖入视频、粘贴直播链接、或输入文字描述。Agent 自动识别你的意图。</p>
+            </div>
+            <div class="wf-connector">
+                <svg width="60" height="2" viewBox="0 0 60 2"><line x1="0" y1="1" x2="60" y2="1" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="6 4"/><defs><linearGradient id="connGrad" x1="0" y1="0" x2="60" y2="0"><stop stop-color="#a855f7"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs></svg>
+            </div>
+            <div class="wf-step" data-animate="fade-up" data-delay="200">
+                <div class="wf-num">02</div>
+                <div class="wf-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <circle cx="20" cy="20" r="14" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 12V20L26 26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="20" cy="20" r="2" fill="currentColor"/>
+                    </svg>
+                </div>
+                <h3>AI 处理</h3>
+                <p>Agent 全自动执行任务流水线，实时展示处理进度。你只需等待几分钟。</p>
+            </div>
+            <div class="wf-connector">
+                <svg width="60" height="2" viewBox="0 0 60 2"><line x1="0" y1="1" x2="60" y2="1" stroke="url(#connGrad2)" stroke-width="2" stroke-dasharray="6 4"/><defs><linearGradient id="connGrad2" x1="0" y1="0" x2="60" y2="0"><stop stop-color="#06b6d4"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs></svg>
+            </div>
+            <div class="wf-step" data-animate="fade-up" data-delay="300">
+                <div class="wf-num">03</div>
+                <div class="wf-icon">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                        <rect x="6" y="8" width="28" height="20" rx="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M18 15L24 19L18 23V15Z" fill="currentColor"/>
+                        <path d="M30 32L36 28V36L30 32Z" fill="currentColor" opacity="0.5"/>
+                    </svg>
+                </div>
+                <h3>预览 & 调优</h3>
+                <p>成片即时预览，不满意？通过浮窗面板微调参数，Agent 重新生成。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 案例展示 -->
+    <section class="showcase" id="showcase">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-tag">效果展示</span>
+            <h2 class="section-title">看看 FrameX <span class="gradient-text">能做什么</span></h2>
+        </div>
+        <div class="showcase-grid">
+            <div class="showcase-card" data-animate="fade-up" data-delay="100">
+                <div class="showcase-preview">
+                    <div class="preview-placeholder">
+                        <div class="play-btn-wrap">
+                            <div class="play-btn-ring"></div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
+                        </div>
+                    </div>
+                    <span class="showcase-badge">视频译制</span>
+                </div>
+                <div class="showcase-info">
+                    <h4>中文教程 → 英文版本</h4>
+                    <p>10 分钟视频，3 分钟完成全流程译制</p>
+                </div>
+            </div>
+            <div class="showcase-card" data-animate="fade-up" data-delay="200">
+                <div class="showcase-preview">
+                    <div class="preview-placeholder preview-placeholder-2">
+                        <div class="play-btn-wrap">
+                            <div class="play-btn-ring"></div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
+                        </div>
+                    </div>
+                    <span class="showcase-badge badge-blue">直播剪辑</span>
+                </div>
+                <div class="showcase-info">
+                    <h4>4 小时电商直播 → 30 条短视频</h4>
+                    <p>AI 自动捕捉高光，一键生成带货切片</p>
+                </div>
+            </div>
+            <div class="showcase-card" data-animate="fade-up" data-delay="300">
+                <div class="showcase-preview">
+                    <div class="preview-placeholder preview-placeholder-3">
+                        <div class="play-btn-wrap">
+                            <div class="play-btn-ring"></div>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
+                        </div>
+                    </div>
+                    <span class="showcase-badge badge-cyan">AI 生成</span>
+                </div>
+                <div class="showcase-info">
+                    <h4>"赛博朋克城市夜景" → 视频</h4>
+                    <p>一句话描述，AI 生成电影级视频画面</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 定价 -->
+    <section class="pricing" id="pricing">
+        <div class="section-header" data-animate="fade-up">
+            <span class="section-tag">定价方案</span>
+            <h2 class="section-title">选择适合你的<span class="gradient-text">方案</span></h2>
+        </div>
+        <div class="pricing-grid">
+            <div class="price-card" data-animate="fade-up" data-delay="100">
+                <h3 class="price-name">免费体验</h3>
+                <div class="price-amount"><span class="price-currency">¥</span>0<span class="price-period">/月</span></div>
+                <ul class="price-features">
+                    <li>每月 3 个任务</li>
+                    <li>最长 5 分钟视频</li>
+                    <li>基础画质输出</li>
+                    <li>社区支持</li>
+                </ul>
+                <a href="../app/index.html" class="btn-outline btn-block">免费开始</a>
+            </div>
+            <div class="price-card price-card-featured" data-animate="fade-up" data-delay="200">
+                <span class="price-popular">最受欢迎</span>
+                <h3 class="price-name">专业版</h3>
+                <div class="price-amount"><span class="price-currency">¥</span>99<span class="price-period">/月</span></div>
+                <ul class="price-features">
+                    <li>无限任务</li>
+                    <li>最长 60 分钟视频</li>
+                    <li>4K 画质输出</li>
+                    <li>优先处理队列</li>
+                    <li>API 接入</li>
+                </ul>
+                <a href="../app/index.html" class="btn-primary btn-block">立即订阅</a>
+            </div>
+            <div class="price-card" data-animate="fade-up" data-delay="300">
+                <h3 class="price-name">企业版</h3>
+                <div class="price-amount"><span class="price-currency">¥</span>499<span class="price-period">/月</span></div>
+                <ul class="price-features">
+                    <li>团队协作</li>
+                    <li>无限时长视频</li>
+                    <li>8K 画质输出</li>
+                    <li>专属 Agent 定制</li>
+                    <li>7×24 技术支持</li>
+                    <li>私有化部署</li>
+                </ul>
+                <a href="../app/index.html" class="btn-outline btn-block">联系销售</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" data-animate="fade-up">
+        <div class="cta-glow"></div>
+        <div class="cta-content">
+            <h2>准备好让 AI 改变你的<br><span class="gradient-text">视频创作方式</span>了吗？</h2>
+            <p>免费体验，无需信用卡。30 秒内开始你的第一个任务。</p>
+            <a href="../app/index.html" class="btn-primary btn-lg">
+                <span>免费开始创作</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="logo-text">FrameX</span>
+                <p>AI 驱动的下一代视频创作平台</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>产品</h4>
+                    <a href="#features">功能介绍</a>
+                    <a href="#pricing">定价</a>
+                    <a href="#">API 文档</a>
+                </div>
+                <div class="footer-col">
+                    <h4>公司</h4>
+                    <a href="#">关于我们</a>
+                    <a href="#">博客</a>
+                    <a href="#">加入我们</a>
+                </div>
+                <div class="footer-col">
+                    <h4>支持</h4>
+                    <a href="#">帮助中心</a>
+                    <a href="#">联系我们</a>
+                    <a href="#">隐私政策</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 FrameX. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

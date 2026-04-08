@@ -1,0 +1,51 @@
+---
+description: 版本策略规则 - 只维护最新版本
+globs: **/*
+alwaysApply: true
+---
+
+# 版本策略规则
+
+## 核心原则
+
+**只维护最新版本的页面，忽略旧版本文件。**
+
+## 当前版本映射
+
+| 功能模块 | 最新版本文件 | 忽略的旧版本 |
+|---------|-------------|-------------|
+| 视频译制 | `translate-v6.html` | `translate.html`, `translate-v2.html`, `translate-v3.html`, `translate-v4.html`, `translate-v5.html` |
+| 编辑器 | `editor-v2.html` | `editor.html` |
+
+## 页面架构
+
+| 页面 | 文件 | 说明 |
+|------|------|------|
+| 创作（主入口） | `create.html` | 统一入口，包含首页视图 + iframe 切换三个功能 |
+| 登录 | `login.html` | 独立登录页（账号密码 / 手机号 / 微信扫码） |
+| 视频译制 | `translate-v6.html` | 独立页面 / 嵌入在 create.html iframe 中 |
+| 直播剪辑 | `livestream.html` | 独立页面 / 嵌入在 create.html iframe 中 |
+| AI 生成 | `generate.html` | 独立页面 / 嵌入在 create.html iframe 中 |
+| 素材管理 | `media.html` | 独立页面 |
+| 任务记录 | `result.html` | 独立页面 |
+
+### 导航结构（侧边栏 3 项）
+
+创作(`create.html`) → 素材(`media.html`) → 作品(`result.html`)
+
+## 规则说明
+
+1. **新功能开发**：只在最新版本文件上进行
+2. **Bug 修复**：只修复最新版本
+3. **样式更新**：只更新最新版本
+4. **代码审查**：跳过旧版本文件
+5. **导航链接**：统一指向 `create.html`
+6. **产品名称**：用户可见文案使用 `Tideo`，CSS 类名/JS 变量中的 `framex` 保持不变
+
+## 项目历史
+
+- 产品改名路径：`av-saas` → `FrameX` → **`Tideo`**（2026-03-12）
+- 本项目从 `framex-app` (av-saas) 迁移而来（2026-03-11）
+- 主仓库迁移：`framex-studio` → `Tideo`（2026-03-19）
+- 主仓库迁移：`Tideo` → **`model`**（2026-03-20）
+- 旧仓库（Tideo / framex-studio / framex-app / av-saas）全部冻结备份，不再修改

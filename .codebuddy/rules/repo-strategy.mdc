@@ -1,0 +1,37 @@
+---
+description: 仓库策略 — 只在 model 仓库开发，其他全部备份冻结
+globs: **/*
+alwaysApply: true
+---
+
+# 仓库策略
+
+## 唯一开发仓库：model
+
+| 仓库 | 远程名 | 状态 | 可否修改 |
+|------|--------|------|---------|
+| **`model`** | `origin` | **唯一活跃仓库** | ✅ 所有改动在这里 |
+| `Tideo` | `tideo-backup` | 🔒 备份冻结 | ❌ 禁止 |
+| `framex-studio` | `studio-backup` | 🔒 备份冻结 | ❌ 禁止 |
+| `framex-app` | `framex` | 🔒 备份冻结 | ❌ 禁止 |
+| `av-saas` | — | 🔒 备份冻结 | ❌ 禁止 |
+
+## 规则（严格执行）
+
+1. **所有代码改动只推送到 `model`**：`git push origin main`
+2. **绝对不要推送、同步、修改**其他仓库（Tideo / framex-studio / framex-app / av-saas），即使用户没说"不要推"也不推
+3. 只有用户**明确说出**"同步到 Tideo"或"同步到 studio"等指令时，才允许推送到对应备份仓库
+4. 远程配置：
+   - `origin` → `https://github.com/ildar981105-create/model.git`
+   - `tideo-backup` → `https://github.com/ildar981105-create/Tideo.git`（备份，不动）
+   - `studio-backup` → `https://github.com/ildar981105-create/framex-studio.git`（备份，不动）
+   - `framex` → `https://github.com/ildar981105-create/framex-app.git`（备份，不动）
+
+## GitHub Pages 地址
+
+| 站点 | 地址 | 状态 |
+|------|------|------|
+| **model（主站）** | `https://ildar981105-create.github.io/model/` | ✅ 唯一更新 |
+| Tideo | `https://ildar981105-create.github.io/Tideo/` | 🔒 备份快照 |
+| framex-studio | `https://ildar981105-create.github.io/framex-studio/` | 🔒 备份快照 |
+| framex-app | `https://ildar981105-create.github.io/framex-app/` | 🔒 备份快照 |

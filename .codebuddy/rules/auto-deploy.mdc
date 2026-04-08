@@ -1,0 +1,49 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-03-20T12:00:00.000Z
+provider: 
+---
+
+# 发布到 model GitHub Pages
+
+## 规则
+
+**仅在用户明确要求发布/推送时**才执行以下流程，不要自动发布。
+
+### 发布步骤
+
+1. **暂存修改的文件**
+   ```bash
+   git add <修改的文件>
+   ```
+   > 注意：不要添加 `.DS_Store`、`*.code-workspace` 等非项目文件
+
+2. **提交**
+   ```bash
+   git commit -m "<简洁的中文描述>"
+   ```
+   - commit message 使用中文，简洁描述本次改动
+   - 格式：`feat: xxx`、`fix: xxx`、`refactor: xxx`
+
+3. **推送到 origin**
+   ```bash
+   git push origin main
+   ```
+
+### 仓库信息
+
+| 项目 | 值 |
+|------|-----|
+| 远程名 | `origin` |
+| 仓库地址 | `https://github.com/ildar981105-create/model.git` |
+| 分支 | `main` |
+| GitHub Pages 地址 | `https://ildar981105-create.github.io/model/` |
+| 主入口 | `app/create.html` |
+
+### 注意事项
+
+- **不要自动发布**，等用户说"发布"、"推送"、"push"等指令时才执行
+- 如果有多个文件改动，合并为一次 commit
+- **只推送到 origin（model）**，绝不推送到 tideo-backup / studio-backup / framex 等备份仓库
