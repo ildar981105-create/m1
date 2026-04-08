@@ -19,8 +19,24 @@
     })();
     </script>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+    /* ===== Logo Wordmark ===== */
+    .logo-wordmark {
+        font-family: 'Sora', 'Space Grotesk', sans-serif;
+        font-weight: 800;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+        color: #e2e8f0;
+        -webkit-text-fill-color: #e2e8f0;
+        line-height: 1;
+        user-select: none;
+    }
+    [data-theme="light"] .logo-wordmark {
+        color: #1e293b;
+        -webkit-text-fill-color: #1e293b;
+    }
+
     /* ===== 亮色模式全面覆盖 ===== */
 
     /* ---- 全局基础 ---- */
@@ -122,13 +138,14 @@
     [data-theme="light"] .cfg-capsule {
         background: rgba(0,0,0,0.03) !important;
         border-color: rgba(0,0,0,0.08) !important;
-        color: #64748b !important;
+        color: #475569 !important;
     }
     [data-theme="light"] .cfg-capsule:hover {
         color: #1e293b !important;
         background: rgba(0,0,0,0.05) !important;
         border-color: rgba(0,0,0,0.15) !important;
     }
+    [data-theme="light"] .cfg-label { color: #94a3b8 !important; }
 
     /* ---- 下拉菜单 ---- */
     [data-theme="light"] .cfg-dropdown,
@@ -138,11 +155,14 @@
         border-color: rgba(0,0,0,0.1) !important;
         box-shadow: 0 8px 28px rgba(0,0,0,0.1) !important;
     }
+    [data-theme="light"] .cfg-drop-group + .cfg-drop-group { border-top-color: rgba(0,0,0,0.06) !important; }
+    [data-theme="light"] .cfg-drop-group-label { color: #94a3b8 !important; }
     [data-theme="light"] .cfg-drop-item,
     [data-theme="light"] .pd-menu-item,
     [data-theme="light"] .skill-picker-item {
         color: #475569 !important;
     }
+    [data-theme="light"] .cfg-drop-item::before { border-color: rgba(0,0,0,0.12) !important; }
     [data-theme="light"] .cfg-drop-item:hover,
     [data-theme="light"] .pd-menu-item:hover,
     [data-theme="light"] .skill-picker-item:hover {
@@ -336,10 +356,9 @@
         width: 100%;
     }
     .hero-title .gradient-word {
-        background: linear-gradient(135deg, #c084fc 0%, #818cf8 40%, #22d3ee 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text-primary);
+        -webkit-text-fill-color: var(--text-primary);
+        font-weight: 800;
     }
 
     /* ==================== 下方左右分栏 ==================== */
@@ -349,22 +368,22 @@
         min-height: 0;
         position: relative;
         z-index: 1;
-        align-items: center;
+        align-items: flex-end;
         max-width: 1200px;
-        margin: 0 auto;
         width: 100%;
+        margin: 0 auto;
     }
 
     /* ==================== 左侧 ==================== */
     .home-left {
-        width: 720px;
+        width: 560px;
         height: 550px;
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
         align-self: center;
         gap: 16px;
-        padding: 8px 24px 0 148px;
+        padding: 8px 24px 0 64px;
         position: relative;
         z-index: 2;
         overflow: visible;
@@ -389,10 +408,10 @@
 
     .skill-item {
         display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 12px 16px;
-        border-radius: 14px;
+        flex-direction: column;
+        gap: 4px;
+        padding: 14px 20px;
+        border-radius: 16px;
         background: rgba(255,255,255,0.02);
         border: 1px solid rgba(255,255,255,0.06);
         cursor: pointer;
@@ -412,8 +431,8 @@
     .skill-item:hover::before { opacity: 1; }
     .skill-item:hover {
         border-color: rgba(255,255,255,0.12);
-        transform: translateX(3px);
-        box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     .skill-item--translate:hover { border-color: rgba(16,185,129,0.2); }
     .skill-item--livestream:hover { border-color: rgba(249,115,22,0.2); }
@@ -423,31 +442,22 @@
     .skill-item--livestream.active { border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.03); }
     .skill-item--generate.active { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.03); }
 
-    .skill-icon-box {
-        width: 88px; height: 50px;
-        border-radius: 10px;
-        display: flex; align-items: center; justify-content: center;
+    .skill-item-icon {
         flex-shrink: 0;
-        overflow: hidden;
-        position: relative;
     }
-    .skill-icon-box img {
-        width: 100%; height: 100%;
-        object-fit: cover;
-        border-radius: 10px;
-        transition: transform 0.4s cubic-bezier(.4,0,.2,1);
-    }
-    .skill-item:hover .skill-icon-box img { transform: scale(1.05); }
-    .skill-item--translate .skill-icon-box { background: rgba(16,185,129,0.1); }
-    .skill-item--generate .skill-icon-box { background: rgba(168,85,247,0.1); }
-    .skill-item--livestream .skill-icon-box { background: rgba(249,115,22,0.1); }
+    .skill-item--translate .skill-item-icon,
+    .skill-item--generate .skill-item-icon,
+    .skill-item--livestream .skill-item-icon { color: currentColor; }
 
     .skill-item-info { flex: 1; min-width: 0; }
     .skill-item-name {
-        font-size: 0.95rem;
-        font-weight: 700;
+        font-size: 1.05rem;
+        font-weight: 800;
         color: var(--text-primary);
-        margin-bottom: 3px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     .skill-item-desc {
         font-size: 0.72rem;
@@ -528,10 +538,51 @@
     .attach-guide-text { line-height: 1; }
     .attach-guide-arrow { margin-left: auto; opacity: 0.4; font-size: 0.6rem; transition: transform 0.2s, opacity 0.2s; }
     .attach-guide:hover .attach-guide-arrow { opacity: 0.7; transform: translateX(2px); }
-    .attach-guide--translate { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.25); color: #34d399; }
-    .attach-guide--translate:hover { background: rgba(16,185,129,0.12); }
-    .attach-guide--livestream { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.25); color: #fb923c; }
+    .attach-guide--translate { background: rgba(148,163,184,0.06); border-color: rgba(148,163,184,0.25); color: #94a3b8; }
+    .attach-guide--translate:hover { background: rgba(148,163,184,0.12); }
+    .attach-guide--livestream { background: rgba(148,163,184,0.06); border-color: rgba(148,163,184,0.25); color: #94a3b8; }
     .attach-guide--livestream:hover { background: rgba(249,115,22,0.12); }
+
+    /* 直播链接输入条 */
+    .live-link-bar {
+        display: flex; align-items: center; gap: 6px;
+        padding: 4px 4px 4px 12px; border-radius: 10px;
+        background: rgba(255,255,255,0.03); border: 1.5px solid rgba(255,255,255,0.1);
+        animation: guideSlideIn 0.35s cubic-bezier(.4,0,.2,1);
+        width: 100%;
+    }
+    .live-link-icon { font-size: 0.82rem; flex-shrink: 0; color: #94a3b8; opacity: 0.7; }
+    .live-link-input {
+        flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+        font-size: 0.76rem; font-weight: 500; color: var(--text-primary);
+        font-family: inherit; padding: 4px 0;
+    }
+    .live-link-input::placeholder { color: rgba(255,255,255,0.25); font-weight: 400; }
+    .live-link-paste {
+        flex-shrink: 0; padding: 5px 10px; border-radius: 7px; border: none;
+        background: rgba(255,255,255,0.06); color: var(--text-muted); font-size: 0.68rem;
+        font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        display: flex; align-items: center; gap: 4px;
+    }
+    .live-link-paste:hover { background: rgba(255,255,255,0.1); color: var(--text-secondary); }
+    .live-link-confirm {
+        flex-shrink: 0; padding: 5px 14px; border-radius: 7px; border: none;
+        background: rgba(255,255,255,0.06); color: var(--text-muted); font-size: 0.72rem;
+        font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit;
+        white-space: nowrap;
+    }
+    .live-link-confirm:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+    .live-link-confirm:disabled { opacity: 0.35; cursor: default; }
+    .live-link-bar.has-link { border-color: rgba(148,163,184,0.3); background: rgba(148,163,184,0.05); }
+    .live-link-bar.has-link .live-link-confirm { background: rgba(148,163,184,0.2); color: #e2e8f0; }
+    .live-link-bar.has-link .live-link-confirm:hover { background: rgba(148,163,184,0.3); }
+    [data-theme="light"] .live-link-bar { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.1); }
+    [data-theme="light"] .live-link-input { color: #1e293b; }
+    [data-theme="light"] .live-link-input::placeholder { color: rgba(0,0,0,0.25); }
+    [data-theme="light"] .live-link-paste { background: rgba(0,0,0,0.04); color: #64748b; }
+    [data-theme="light"] .live-link-paste:hover { background: rgba(0,0,0,0.07); color: #475569; }
+    [data-theme="light"] .live-link-confirm { background: rgba(0,0,0,0.04); color: #64748b; }
+    [data-theme="light"] .live-link-bar.has-link .live-link-confirm { background: rgba(0,0,0,0.08); color: #1e293b; }
 
     .input-textarea {
         width: 100%;
@@ -680,38 +731,63 @@
     .config-bar { display: flex; flex-wrap: nowrap; align-items: center; gap: 4px; position: relative; overflow: visible; }
     .config-bar:empty { display: none; }
     .cfg-capsule {
-        position: relative; display: inline-flex; align-items: center; gap: 3px;
-        padding: 3px 8px; font-size: 0.65rem; font-weight: 500;
-        color: var(--text-muted); background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07); border-radius: 100px;
+        position: relative; display: inline-flex; align-items: center; gap: 4px;
+        padding: 4px 10px; font-size: 0.68rem; font-weight: 500;
+        color: var(--text-secondary); background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.09); border-radius: 100px;
         cursor: pointer; transition: all 0.2s; font-family: inherit; user-select: none;
     }
-    .cfg-capsule:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.06); }
-    .cfg-capsule.modified { border-color: rgba(99,102,241,0.3); color: var(--text-primary); background: rgba(99,102,241,0.06); }
-    .cfg-capsule.modified[data-theme="translate"] { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.06); color: #34d399; }
-    .cfg-capsule.modified[data-theme="livestream"] { border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.06); color: #fb923c; }
-    .cfg-capsule.modified[data-theme="generate"] { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.06); color: #c084fc; }
+    .cfg-capsule:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.07); }
+    .cfg-capsule.modified { border-color: rgba(148,163,184,0.3); color: var(--text-primary); background: rgba(148,163,184,0.06); }
+    .cfg-capsule.modified[data-theme="translate"] { border-color: rgba(148,163,184,0.3); background: rgba(148,163,184,0.06); color: #cbd5e1; }
+    .cfg-capsule.modified[data-theme="livestream"] { border-color: rgba(148,163,184,0.3); background: rgba(148,163,184,0.06); color: #cbd5e1; }
+    .cfg-capsule.modified[data-theme="generate"] { border-color: rgba(148,163,184,0.3); background: rgba(148,163,184,0.06); color: #cbd5e1; }
+    .cfg-label { color: var(--text-faint); font-weight: 500; }
     .cfg-value { font-weight: 600; }
     .cfg-arrow { font-size: 0.45rem; opacity: 0.45; transition: transform 0.2s; }
     .cfg-capsule.open .cfg-arrow { transform: rotate(180deg); }
     .cfg-dropdown {
-        position: absolute; bottom: calc(100% + 5px); left: 50%; transform: translateX(-50%);
-        min-width: 90px; background: rgba(15,15,26,0.96);
-        backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 10px; padding: 4px;
-        box-shadow: 0 8px 28px rgba(0,0,0,0.4); z-index: 100;
+        position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%) translateY(4px);
+        min-width: 110px; background: rgba(15,15,26,0.97);
+        backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 12px; padding: 5px;
+        box-shadow: 0 10px 36px rgba(0,0,0,0.45); z-index: 100;
         opacity: 0; visibility: hidden; transition: all 0.2s cubic-bezier(.4,0,.2,1);
     }
     .cfg-dropdown.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .cfg-drop-group { padding: 2px 0; }
+    .cfg-drop-group + .cfg-drop-group { border-top: 1px solid rgba(255,255,255,0.06); margin-top: 2px; padding-top: 4px; }
+    .cfg-drop-group-label {
+        padding: 3px 10px 2px; font-size: 0.55rem; font-weight: 600;
+        color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em;
+    }
     .cfg-drop-item {
-        display: block; width: 100%; padding: 5px 10px;
-        font-size: 0.65rem; font-weight: 500; color: var(--text-muted);
-        background: none; border: none; border-radius: 6px;
+        display: flex; align-items: center; gap: 6px; width: 100%; padding: 5px 10px;
+        font-size: 0.66rem; font-weight: 500; color: var(--text-muted);
+        background: none; border: none; border-radius: 7px;
         cursor: pointer; transition: all 0.12s; text-align: left;
         white-space: nowrap; font-family: inherit;
     }
+    .cfg-drop-item::before {
+        content: ''; display: inline-block; width: 14px; height: 14px; flex-shrink: 0;
+        border-radius: 4px; border: 1.5px solid rgba(255,255,255,0.12); transition: all 0.15s;
+    }
     .cfg-drop-item:hover { color: var(--text-primary); background: rgba(255,255,255,0.06); }
+    .cfg-drop-item:hover::before { border-color: rgba(255,255,255,0.25); }
     .cfg-drop-item.selected { color: #a78bfa; background: rgba(99,102,241,0.08); }
+    .cfg-drop-item.selected::before {
+        background: #a78bfa; border-color: #a78bfa;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+        background-repeat: no-repeat; background-position: center; background-size: 9px;
+    }
+
+    /* 双列语言选择面板 */
+    .cfg-dual{display:flex;gap:0;min-width:220px}
+    .cfg-dual-col{flex:1;padding:4px}
+    .cfg-dual-col+.cfg-dual-col{border-left:1px solid rgba(255,255,255,0.08)}
+    .cfg-dual-label{padding:3px 8px 2px;font-size:.55rem;font-weight:600;color:var(--text-faint);text-transform:uppercase;letter-spacing:.04em}
+    .cfg-dual-col .cfg-drop-item{padding:4px 8px;font-size:.62rem}
+    .cfg-dual-col .cfg-drop-item::before{display:none}
 
     .skill-tag {
         display: inline-flex; align-items: center; gap: 4px;
@@ -719,7 +795,7 @@
         border-radius: 100px; cursor: pointer; transition: all 0.25s;
         white-space: nowrap; user-select: none; flex-shrink: 0;
     }
-    .skill-tag-icon { font-size: 0.78rem; }
+    .skill-tag-icon { font-size: 0.78rem; display:inline-flex;align-items:center;justify-content:center; }
     .skill-tag-name { line-height: 1; }
     .skill-tag-action {
         display: inline-flex; align-items: center; justify-content: center;
@@ -729,19 +805,19 @@
         padding: 0; opacity: 0.7;
     }
     .skill-tag-action:hover { opacity: 1; transform: scale(1.15); }
-    .skill-tag--confirmed.skill-tag--translate { background: rgba(16,185,129,0.14); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
-    .skill-tag--confirmed.skill-tag--livestream { background: rgba(249,115,22,0.14); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
-    .skill-tag--confirmed.skill-tag--generate { background: rgba(168,85,247,0.14); color: #c084fc; border: 1px solid rgba(168,85,247,0.3); }
-    .skill-tag--confirmed.skill-tag--erase { background: rgba(6,182,212,0.14); color: #22d3ee; border: 1px solid rgba(6,182,212,0.3); }
-    .skill-tag--confirmed.skill-tag--subtitle { background: rgba(56,189,248,0.14); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
-    .skill-tag--confirmed.skill-tag--voiceover { background: rgba(99,102,241,0.14); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
+    .skill-tag--confirmed.skill-tag--translate { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .skill-tag--confirmed.skill-tag--livestream { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .skill-tag--confirmed.skill-tag--generate { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .skill-tag--confirmed.skill-tag--erase { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .skill-tag--confirmed.skill-tag--subtitle { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+    .skill-tag--confirmed.skill-tag--voiceover { background: rgba(148,163,184,0.14); color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
     .skill-tag--pending { border-style: dashed !important; opacity: 0.85; }
-    .skill-tag--pending.skill-tag--translate { background: rgba(16,185,129,0.08); color: #34d399; border: 1.5px dashed rgba(16,185,129,0.35); }
-    .skill-tag--pending.skill-tag--livestream { background: rgba(249,115,22,0.08); color: #fb923c; border: 1.5px dashed rgba(249,115,22,0.35); }
-    .skill-tag--pending.skill-tag--generate { background: rgba(168,85,247,0.08); color: #c084fc; border: 1.5px dashed rgba(168,85,247,0.35); }
-    .skill-tag--pending.skill-tag--erase { background: rgba(6,182,212,0.08); color: #22d3ee; border: 1.5px dashed rgba(6,182,212,0.35); }
-    .skill-tag--pending.skill-tag--subtitle { background: rgba(56,189,248,0.08); color: #38bdf8; border: 1.5px dashed rgba(56,189,248,0.35); }
-    .skill-tag--pending.skill-tag--voiceover { background: rgba(99,102,241,0.08); color: #818cf8; border: 1.5px dashed rgba(99,102,241,0.35); }
+    .skill-tag--pending.skill-tag--translate { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
+    .skill-tag--pending.skill-tag--livestream { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
+    .skill-tag--pending.skill-tag--generate { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
+    .skill-tag--pending.skill-tag--erase { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
+    .skill-tag--pending.skill-tag--subtitle { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
+    .skill-tag--pending.skill-tag--voiceover { background: rgba(148,163,184,0.08); color: #94a3b8; border: 1.5px dashed rgba(148,163,184,0.35); }
     .skill-tag--placeholder {
         background: rgba(255,255,255,0.04); color: var(--text-faint);
         border: 1.5px dashed rgba(255,255,255,0.12); position: relative;
@@ -765,7 +841,7 @@
         border: none; background: none; width: 100%; text-align: left; transition: all 0.15s;
     }
     .skill-picker-item:hover { background: rgba(255,255,255,0.06); color: var(--text-primary); }
-    .skill-picker-item-icon { font-size: 0.82rem; }
+    .skill-picker-item-icon { width:18px;height:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0; }
     .skill-picker-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 4px 8px; }
     .skill-picker-label { padding: 4px 10px 2px; font-size: 0.58rem; font-weight: 600; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
     .skill-tag-divider { width: 1px; height: 14px; background: rgba(255,255,255,0.08); flex-shrink: 0; }
@@ -780,16 +856,16 @@
         box-shadow: 0 8px 28px rgba(0,0,0,0.3);
     }
     .nudge-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-    .nudge-toast--translate { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); backdrop-filter: blur(16px); }
-    .nudge-toast--livestream { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); backdrop-filter: blur(16px); }
+    .nudge-toast--translate { background: rgba(148,163,184,0.15); border: 1px solid rgba(148,163,184,0.3); backdrop-filter: blur(16px); }
+    .nudge-toast--livestream { background: rgba(148,163,184,0.15); border: 1px solid rgba(148,163,184,0.3); backdrop-filter: blur(16px); }
     .nudge-toast-icon { font-size: 0.9rem; }
     .nudge-toast-text { color: rgba(255,255,255,0.9); }
     .nudge-toast-btn {
         padding: 3px 10px; border-radius: 6px; border: none;
         font-size: 0.68rem; font-weight: 600; cursor: pointer; transition: all 0.2s;
     }
-    .nudge-toast--translate .nudge-toast-btn { background: rgba(16,185,129,0.25); color: #34d399; }
-    .nudge-toast--livestream .nudge-toast-btn { background: rgba(249,115,22,0.25); color: #fb923c; }
+    .nudge-toast--translate .nudge-toast-btn { background: rgba(148,163,184,0.25); color: #cbd5e1; }
+    .nudge-toast--livestream .nudge-toast-btn { background: rgba(148,163,184,0.25); color: #cbd5e1; }
     .input-box.shake { animation: inputShake 0.45s cubic-bezier(.36,.07,.19,.97); }
     @keyframes inputShake {
         0%,100% { transform: translateX(0); }
@@ -801,10 +877,12 @@
     .home-right {
         flex: 1;
         min-width: 0;
+        height: 550px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        align-self: center;
         position: relative;
         z-index: 1;
         overflow: visible;
@@ -815,13 +893,12 @@
     .crew-group-photo {
         position: relative;
         z-index: 2;
-        max-width: 456px;
         width: 100%;
-        aspect-ratio: 1 / 1;
+        height: 100%;
     }
     .crew-photo-img {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: contain;
         object-position: center bottom;
         display: block;
@@ -830,23 +907,60 @@
     }
     .crew-photo-skill,
     .crew-photo-translate,
+    .crew-photo-livestream,
+    .crew-photo-generate,
     .crew-photo-solo {
         position: absolute;
         top: 0; left: 0;
         opacity: 0;
     }
     .crew-group-photo.skill-active .crew-photo-default { opacity: 0; }
-    .crew-group-photo.skill-active .crew-photo-skill { display: block !important; opacity: 1; }
+    .crew-group-photo.skill-active .crew-photo-skill { display: block !important; opacity: 1; mix-blend-mode: multiply; }
     /* 选中影视译制时 → 显示4人译制配图，隐藏通用合影 */
-    .crew-group-photo.skill-translate { max-width: 380px; }
     .crew-group-photo.skill-translate .crew-photo-skill { opacity: 0 !important; }
-    .crew-group-photo.skill-translate .crew-photo-translate { display: block !important; opacity: 1 !important; }
+    .crew-group-photo.skill-translate .crew-photo-translate {
+        display: block !important; opacity: 1 !important;
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        object-position: center center;
+    }
+    /* 选中直播剪辑时 → 显示后期角色图 */
+    .crew-group-photo.skill-livestream .crew-photo-skill { opacity: 0 !important; }
+    .crew-group-photo.skill-livestream .crew-photo-livestream {
+        display: block !important; opacity: 1 !important;
+        width: auto;
+        height: 80%;
+        max-height: 380px;
+        max-width: 100%;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        object-position: center center;
+    }
+    .crew-group-photo.skill-livestream .crew-hotspot-7 { display: none !important; }
+    /* 选中视频制作时 → 显示导演角色图 */
+    .crew-group-photo.skill-generate .crew-photo-skill { opacity: 0 !important; }
+    .crew-group-photo.skill-generate .crew-photo-generate {
+        display: block !important; opacity: 1 !important;
+        width: auto;
+        height: 100%;
+        max-width: 100%;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        object-position: center center;
+    }
+    .crew-group-photo.skill-generate .crew-hotspot-7 { display: none !important; }
     /* 选中影视译制时：隐藏 7 人热区，显示 4 人热区 */
     .crew-group-photo.skill-translate .crew-hotspot-7 { display: none !important; }
     .crew-hotspot-4 { display: none; }
     .crew-group-photo.skill-translate .crew-hotspot-4 { display: block !important; }
     /* 选中子技能（单人模式）→ 显示对应角色 3D 图，隐藏其余 */
-    .crew-group-photo.skill-solo { max-width: 300px; }
+    .crew-group-photo.skill-solo { max-width: 400px; }
     .crew-group-photo.skill-solo .crew-photo-skill { opacity: 0 !important; }
     .crew-group-photo.skill-solo .crew-hotspot-7,
     .crew-group-photo.skill-solo .crew-hotspot-4 { display: none !important; }
@@ -863,7 +977,7 @@
         position: absolute;
         bottom: -4px; left: 15%; right: 15%;
         height: 30px;
-        background: radial-gradient(ellipse at center, rgba(124,58,237,0.05) 0%, transparent 70%);
+        background: radial-gradient(ellipse at center, rgba(100,100,120,0.05) 0%, transparent 70%);
         pointer-events: none;
         filter: blur(10px);
     }
@@ -1086,19 +1200,19 @@
     /* ===== 响应式 ===== */
     @media (max-width: 1200px) {
         .home-left { width: 600px; padding: 0 20px 32px 96px; }
-        .crew-group-photo { max-width: 380px; }
+        .crew-group-photo { max-width: 580px; }
         .hero-title { font-size: 1.7rem; }
     }
     @media (max-width: 900px) {
         .home-left { width: 480px; padding: 0 16px 24px 56px; }
-        .crew-group-photo { max-width: 320px; }
+        .crew-group-photo { max-width: 480px; }
         .hero-title { font-size: 1.5rem; }
     }
     @media (max-width: 800px) {
         .home-body { flex-direction: column; }
         .home-left { width: 100%; padding: 0 20px 20px; }
         .home-right { min-height: 280px; }
-        .crew-group-photo { max-width: 340px; }
+        .crew-group-photo { max-width: 500px; }
         .hero-title { font-size: 1.4rem; }
         .home-hero-top { padding: 28px 20px 16px; }
     }
@@ -1106,21 +1220,21 @@
     /* ===== Light Mode — create.html 专属覆盖 ===== */
     /* 覆盖所有暗色模式硬编码的 rgba(255,255,255,...) / rgba(15,15,26,...) / #1e1e2a 等值 */
 
-    /* 氛围光减弱 */
+    /* 氛围光增强 — 配合渐变背景 */
     [data-theme="light"] .create-home::before {
         background:
-            radial-gradient(ellipse 60% 50% at 55% 35%, rgba(124,58,237,0.03) 0%, transparent 60%),
-            radial-gradient(ellipse 45% 45% at 30% 60%, rgba(59,130,246,0.02) 0%, transparent 55%);
+            radial-gradient(ellipse 70% 50% at 60% 20%, rgba(147,130,237,0.06) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 45% at 25% 50%, rgba(99,149,246,0.05) 0%, transparent 55%);
     }
     [data-theme="light"] .create-home::after {
-        background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(236,72,153,0.015) 0%, transparent 55%);
+        background: radial-gradient(ellipse 55% 50% at 80% 70%, rgba(236,130,193,0.04) 0%, transparent 55%);
     }
 
-    /* 渐变标题：亮色下加深饱和度 */
+    /* 渐变标题：亮色下黑色 */
     [data-theme="light"] .hero-title .gradient-word {
-        background: linear-gradient(135deg, #9333ea 0%, #6366f1 40%, #0891b2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #1e293b;
+        -webkit-text-fill-color: #1e293b;
+    }
         background-clip: text;
     }
 
@@ -1150,9 +1264,9 @@
     [data-theme="light"] .skill-item--translate.active { border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.04); }
     [data-theme="light"] .skill-item--livestream.active { border-color: rgba(249,115,22,0.4); background: rgba(249,115,22,0.04); }
     [data-theme="light"] .skill-item--generate.active { border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.04); }
-    [data-theme="light"] .skill-item--translate .skill-icon-box { background: rgba(16,185,129,0.08); }
-    [data-theme="light"] .skill-item--livestream .skill-icon-box { background: rgba(249,115,22,0.08); }
-    [data-theme="light"] .skill-item--generate .skill-icon-box { background: rgba(168,85,247,0.08); }
+    [data-theme="light"] .skill-item--translate .skill-item-icon,
+    [data-theme="light"] .skill-item--livestream .skill-item-icon,
+    [data-theme="light"] .skill-item--generate .skill-item-icon { color: currentColor; }
 
     /* ---- 输入框 ---- */
     [data-theme="light"] .input-box {
@@ -1175,14 +1289,14 @@
         border-color: rgba(0,0,0,0.08);
     }
     /* 附件引导 */
-    [data-theme="light"] .attach-guide--translate { background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.3); color: #059669; }
-    [data-theme="light"] .attach-guide--translate:hover { background: rgba(16,185,129,0.1); }
-    [data-theme="light"] .attach-guide--livestream { background: rgba(249,115,22,0.06); border-color: rgba(249,115,22,0.3); color: #ea580c; }
-    [data-theme="light"] .attach-guide--livestream:hover { background: rgba(249,115,22,0.1); }
+    [data-theme="light"] .attach-guide--translate { background: rgba(100,116,139,0.06); border-color: rgba(100,116,139,0.2); color: #475569; }
+    [data-theme="light"] .attach-guide--translate:hover { background: rgba(100,116,139,0.1); }
+    [data-theme="light"] .attach-guide--livestream { background: rgba(100,116,139,0.06); border-color: rgba(100,116,139,0.2); color: #475569; }
+    [data-theme="light"] .attach-guide--livestream:hover { background: rgba(100,116,139,0.1); }
 
     /* 发送按钮 & 工具栏 */
     [data-theme="light"] .input-submit-btn {
-        box-shadow: 0 2px 12px rgba(99,102,241,0.2);
+        box-shadow: 0 2px 12px rgba(0,0,0,0.12);
     }
     [data-theme="light"] .input-icon-btn:hover {
         color: var(--text-secondary);
@@ -1233,10 +1347,10 @@
         border-color: rgba(0,0,0,0.16);
         background: rgba(0,0,0,0.05);
     }
-    [data-theme="light"] .cfg-capsule.modified { border-color: rgba(99,102,241,0.3); color: var(--text-primary); background: rgba(99,102,241,0.04); }
-    [data-theme="light"] .cfg-capsule.modified[data-theme="translate"] { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.04); color: #059669; }
-    [data-theme="light"] .cfg-capsule.modified[data-theme="livestream"] { border-color: rgba(249,115,22,0.3); background: rgba(249,115,22,0.04); color: #ea580c; }
-    [data-theme="light"] .cfg-capsule.modified[data-theme="generate"] { border-color: rgba(168,85,247,0.3); background: rgba(168,85,247,0.04); color: #9333ea; }
+    [data-theme="light"] .cfg-capsule.modified { border-color: rgba(100,116,139,0.3); color: var(--text-primary); background: rgba(100,116,139,0.04); }
+    [data-theme="light"] .cfg-capsule.modified[data-theme="translate"] { border-color: rgba(100,116,139,0.3); background: rgba(100,116,139,0.04); color: #334155; }
+    [data-theme="light"] .cfg-capsule.modified[data-theme="livestream"] { border-color: rgba(100,116,139,0.3); background: rgba(100,116,139,0.04); color: #334155; }
+    [data-theme="light"] .cfg-capsule.modified[data-theme="generate"] { border-color: rgba(100,116,139,0.3); background: rgba(100,116,139,0.04); color: #334155; }
 
     /* ---- 配置下拉 (cfg-dropdown) ---- */
     [data-theme="light"] .cfg-dropdown {
@@ -1255,18 +1369,18 @@
     }
 
     /* ---- 技能标签 (skill-tag) ---- */
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--translate { background: rgba(16,185,129,0.1); color: #059669; border-color: rgba(16,185,129,0.3); }
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--livestream { background: rgba(249,115,22,0.1); color: #ea580c; border-color: rgba(249,115,22,0.3); }
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--generate { background: rgba(168,85,247,0.1); color: #9333ea; border-color: rgba(168,85,247,0.3); }
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--erase { background: rgba(6,182,212,0.1); color: #0891b2; border-color: rgba(6,182,212,0.3); }
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--subtitle { background: rgba(56,189,248,0.1); color: #0284c7; border-color: rgba(56,189,248,0.3); }
-    [data-theme="light"] .skill-tag--confirmed.skill-tag--voiceover { background: rgba(99,102,241,0.1); color: #4f46e5; border-color: rgba(99,102,241,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--translate { background: rgba(16,185,129,0.06); color: #059669; border-color: rgba(16,185,129,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--livestream { background: rgba(249,115,22,0.06); color: #ea580c; border-color: rgba(249,115,22,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--generate { background: rgba(168,85,247,0.06); color: #9333ea; border-color: rgba(168,85,247,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--erase { background: rgba(6,182,212,0.06); color: #0891b2; border-color: rgba(6,182,212,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--subtitle { background: rgba(56,189,248,0.06); color: #0284c7; border-color: rgba(56,189,248,0.3); }
-    [data-theme="light"] .skill-tag--pending.skill-tag--voiceover { background: rgba(99,102,241,0.06); color: #4f46e5; border-color: rgba(99,102,241,0.3); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--translate { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--livestream { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--generate { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--erase { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--subtitle { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--confirmed.skill-tag--voiceover { background: rgba(100,116,139,0.1); color: #334155; border-color: rgba(100,116,139,0.25); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--translate { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--livestream { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--generate { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--erase { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--subtitle { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
+    [data-theme="light"] .skill-tag--pending.skill-tag--voiceover { background: rgba(100,116,139,0.06); color: #475569; border-color: rgba(100,116,139,0.2); }
     [data-theme="light"] .skill-tag--placeholder {
         background: rgba(0,0,0,0.03); color: var(--text-muted);
         border-color: rgba(0,0,0,0.12);
@@ -1290,6 +1404,8 @@
         color: var(--text-primary);
     }
     [data-theme="light"] .skill-picker-divider { background: rgba(0,0,0,0.06); }
+    [data-theme="light"] .cfg-dual-col+.cfg-dual-col{border-left-color:rgba(0,0,0,0.08)}
+    [data-theme="light"] .cfg-dual-label{color:#94a3b8}
 
     /* ---- Nudge toast ---- */
     [data-theme="light"] .nudge-toast--translate {
@@ -1312,7 +1428,7 @@
         filter: drop-shadow(0 16px 40px rgba(0,0,0,0.15));
     }
     [data-theme="light"] .crew-group-photo::after {
-        background: radial-gradient(ellipse at center, rgba(124,58,237,0.03) 0%, transparent 70%);
+        background: radial-gradient(ellipse at center, rgba(100,100,120,0.03) 0%, transparent 70%);
     }
 
     /* ---- 角色热区 ---- */
@@ -1386,12 +1502,7 @@
     <!-- 侧边栏 -->
     <aside class="icon-sidebar">
         <a href="create.html" class="icon-sidebar-logo" title="Tideo">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-                <rect x="1.5" y="1.5" width="29" height="29" rx="8" fill="rgba(168,85,247,0.08)" stroke="url(#sLogo)" stroke-width="2"/>
-                <text x="7" y="22.5" font-family="'Space Grotesk','Inter',sans-serif" font-size="18" font-weight="800" fill="url(#sLogo)">T</text>
-                <path d="M19.5 14.3L24.5 17L19.5 19.7V14.3Z" fill="url(#sLogo)" opacity="0.9"/>
-                <defs><linearGradient id="sLogo" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#a855f7"/><stop offset="0.5" stop-color="#6366f1"/><stop offset="1" stop-color="#06b6d4"/></linearGradient></defs>
-            </svg>
+            <span class="logo-wordmark">Tideo</span>
         </a>
         <nav class="icon-nav">
             <a href="create.html" class="icon-nav-item active">
@@ -1443,7 +1554,7 @@
 
             <!-- 顶部居中标题 -->
             <div class="home-hero-top">
-                <h1 class="hero-title">欢迎来到专业级 <span class="gradient-word">AI 媒体工厂</span>，一起创作吧！</h1>
+                <h1 class="hero-title">欢迎来到专业级 <span class="gradient-word">AI 媒体工厂</span> <span style="background:linear-gradient(135deg,#f59e0b,#ec4899,#8b5cf6,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:1.1em">✦</span>，一起创作吧！</h1>
             </div>
 
             <!-- 下方左右分栏 -->
@@ -1454,28 +1565,25 @@
                 <div class="skill-list-label">试试我们的特色项目</div>
                 <div class="skill-list">
                     <div class="skill-item skill-item--translate" data-skill="translate">
-                        <div class="skill-icon-box"><img src="assets/scene-translate.png" alt="视频译制"></div>
-                        <div class="skill-item-info">
-                            <div class="skill-item-name">影视译制</div>
-                            <div class="skill-item-desc">擦除原生字幕与水印，翻译新字幕并重新配音</div>
+                        <div class="skill-item-name">
+                            <svg class="skill-item-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                            影视译制
                         </div>
-                        <svg class="skill-item-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="skill-item-desc">擦除原生字幕与水印，翻译新字幕并重新配音</div>
                     </div>
                     <div class="skill-item skill-item--generate" data-skill="generate">
-                        <div class="skill-icon-box"><img src="assets/scene-generate.png" alt="视频制作"></div>
-                        <div class="skill-item-info">
-                            <div class="skill-item-name">视频制作</div>
-                            <div class="skill-item-desc">根据分镜和脚本，生成连贯完整的视频</div>
+                        <div class="skill-item-name">
+                            <svg class="skill-item-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+                            视频制作
                         </div>
-                        <svg class="skill-item-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="skill-item-desc">根据分镜和脚本，生成连贯完整的视频</div>
                     </div>
                     <div class="skill-item skill-item--livestream" data-skill="livestream">
-                        <div class="skill-icon-box"><img src="assets/scene-livestream.png" alt="直播剪辑"></div>
-                        <div class="skill-item-info">
-                            <div class="skill-item-name">直播剪辑</div>
-                            <div class="skill-item-desc">一边直播，一边自动剪辑，生成媒体素材</div>
+                        <div class="skill-item-name">
+                            <svg class="skill-item-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+                            直播剪辑
                         </div>
-                        <svg class="skill-item-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        <div class="skill-item-desc">一边直播，一边自动剪辑，生成媒体素材</div>
                     </div>
                 </div>
 
@@ -1491,10 +1599,6 @@
                         <div class="input-rich" id="mainInput" contenteditable="true" data-placeholder="或者试试使用我们研发的"媒体技能""></div>
                         <div class="input-toolbar">
                             <div class="input-left">
-                                <button class="input-icon-btn" id="uploadBtn" title="上传文件">
-                                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 10V3M8 3L11 6M8 3L5 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 10V12C2 12.5523 2.44772 13 3 13H13C13.5523 13 14 12.5523 14 12V10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                                </button>
-                                <div class="toolbar-divider" id="toolbarDivider" style="display:none;"></div>
                                 <div class="config-bar" id="configBar"></div>
                             </div>
                             <button class="input-submit-btn" id="submitBtn">
@@ -1510,7 +1614,9 @@
                 <div class="crew-group-photo" id="crewGroupPhoto">
                     <img src="assets/characters/team-group-default.png" alt="Tideo 光影工作室团队" class="crew-photo-img crew-photo-default">
                     <img src="assets/characters/team-group-photo.png" alt="Tideo 光影工作室团队合影" class="crew-photo-img crew-photo-skill" style="display:none">
-                    <img src="assets/characters/team-translate.png" alt="影视译制四人组" class="crew-photo-img crew-photo-translate" style="display:none">
+                    <img src="assets/characters/team-translate-tight.png" alt="影视译制四人组" class="crew-photo-img crew-photo-translate" style="display:none">
+                    <img src="assets/characters/team-livestream.png" alt="直播剪辑" class="crew-photo-img crew-photo-livestream" style="display:none">
+                    <img src="assets/characters/team-generate.png" alt="视频制作" class="crew-photo-img crew-photo-generate" style="display:none">
                     <img src="assets/characters/chenmo-postprod-3d.png" alt="陈默 — 后期" class="crew-photo-img crew-photo-solo crew-photo-erase" style="display:none">
                     <img src="assets/characters/limingyuan-translator-3d.png" alt="李明远 — 翻译" class="crew-photo-img crew-photo-solo crew-photo-subtitle" style="display:none">
                     <img src="assets/characters/suya-voice-3d.png" alt="苏雅 — 配音" class="crew-photo-img crew-photo-solo crew-photo-voiceover" style="display:none">
@@ -1543,22 +1649,22 @@
                     <div class="crew-hotspot crew-hotspot-7" data-char="producer"        style="left:82%; top:2%;  width:18%; height:72%">
                         <span class="crew-hotspot-label"><span class="crew-hotspot-name">张晓萌</span><span class="crew-hotspot-role">制片人</span></span>
                     </div>
-                    <!-- 4 人译制热区（选中影视译制时显示，位置基于 team-translate.png） -->
-                    <!-- 1. 最左：林雨晨（导演）— 黑皮衣+场记板 -->
-                    <div class="crew-hotspot crew-hotspot-4" data-char="director"        style="left:0%;  top:2%;  width:26%; height:90%">
-                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">林雨晨</span><span class="crew-hotspot-role">导演</span></span>
-                    </div>
-                    <!-- 2. 左中：苏雅（配音）— 粉色上衣+麦克风 -->
-                    <div class="crew-hotspot crew-hotspot-4" data-char="voice"           style="left:22%; top:10%; width:24%; height:85%">
+                    <!-- 4 人译制热区（选中影视译制时显示，位置基于 team-translate-tight.png） -->
+                    <!-- 1. 最左：苏雅（配音）— 蓝条纹西装+麦克风 -->
+                    <div class="crew-hotspot crew-hotspot-4" data-char="voice"           style="left:0%;  top:2%;  width:26%; height:90%">
                         <span class="crew-hotspot-label"><span class="crew-hotspot-name">苏雅</span><span class="crew-hotspot-role">配音</span></span>
                     </div>
-                    <!-- 3. 右中：陈默（后期）— 紫色卫衣+耳机 -->
-                    <div class="crew-hotspot crew-hotspot-4" data-char="postprod"        style="left:44%; top:0%;  width:26%; height:92%">
-                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">陈默</span><span class="crew-hotspot-role">后期</span></span>
+                    <!-- 2. 左中：林雨晨（导演）— 黑皮衣+NY帽+扬声器 -->
+                    <div class="crew-hotspot crew-hotspot-4" data-char="director"        style="left:20%; top:10%; width:28%; height:85%">
+                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">林雨晨</span><span class="crew-hotspot-role">导演</span></span>
                     </div>
-                    <!-- 4. 最右：赵思琪（美术指导）— 彩发+调色板 -->
-                    <div class="crew-hotspot crew-hotspot-4" data-char="artdirector"     style="left:68%; top:2%;  width:32%; height:90%">
-                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">赵思琪</span><span class="crew-hotspot-role">美术指导</span></span>
+                    <!-- 3. 右中：李明远（翻译）— 棕色开衫+字典 -->
+                    <div class="crew-hotspot crew-hotspot-4" data-char="translator"      style="left:46%; top:0%;  width:26%; height:92%">
+                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">李明远</span><span class="crew-hotspot-role">翻译</span></span>
+                    </div>
+                    <!-- 4. 最右：陈默（后期）— 红发+耳机+笔记本 -->
+                    <div class="crew-hotspot crew-hotspot-4" data-char="postprod"        style="left:70%; top:2%;  width:30%; height:90%">
+                        <span class="crew-hotspot-label"><span class="crew-hotspot-name">陈默</span><span class="crew-hotspot-role">后期</span></span>
                     </div>
                 </div>
             </div>
@@ -1695,98 +1801,101 @@
         // ===== Skill 技能系统 =====
         var skills = {
             translate: {
-                name: '视频译制', icon: '🌐', url: 'translate-v7.html', cssClass: 'translate',
-                placeholder: '描述你想翻译的内容，比如"把这个视频翻译成英文"...',
+                name: '视频译制', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>', url: 'translate-v8.html', cssClass: 'translate',
+                placeholder: '上传视频后，我会自动擦除原字幕、翻译并重新配音',
                 keywords: ['翻译','译制','多语言','本地化','英文','日文','英语','日语','韩语','法语','德语','西班牙语','translate','语种','口型','出海'],
                 config: [
-                    { key: 'targetLang', label: '目标语言', options: [
-                        { value: 'en', text: '英语' },{ value: 'ja', text: '日语' },{ value: 'ko', text: '韩语' },
-                        { value: 'es', text: '西班牙语' },{ value: 'fr', text: '法语' },{ value: 'de', text: '德语' }
+                    { key: 'lang', label: '语言', type: 'dual', left: {
+                        label: '源语言',
+                        options: [
+                            { value: 'auto', text: '自动' },{ value: 'zh', text: '中文' },
+                            { value: 'en', text: '英语' },{ value: 'ja', text: '日语' },{ value: 'ko', text: '韩语' }
+                        ]
+                    }, right: {
+                        label: '目标语言',
+                        options: [
+                            { value: 'en', text: '英语' },{ value: 'ja', text: '日语' },{ value: 'ko', text: '韩语' },
+                            { value: 'es', text: '西语' },{ value: 'fr', text: '法语' },{ value: 'de', text: '德语' },{ value: 'zh', text: '中文' }
+                        ]
+                    }},
+                    { key: 'subtitle', label: '字幕', type: 'grouped', groups: [
+                        { label: '压制', options: [
+                            { value: 'burn_default', text: '标准' },
+                            { value: 'burn_cinematic', text: '电影' },
+                            { value: 'burn_variety', text: '花字' },
+                            { value: 'burn_minimal', text: '极简' }
+                        ]},
+                        { label: '文件', options: [
+                            { value: 'file_srt', text: 'SRT' },
+                            { value: 'file_ass', text: 'ASS' }
+                        ]},
+                        { label: '其他', options: [
+                            { value: 'off', text: '关闭' }
+                        ]}
                     ]},
-                    { key: 'voiceStyle', label: '音色', options: [
-                        { value: 'auto', text: '自动匹配' },{ value: 'clone', text: '声音克隆' },
-                        { value: 'female', text: '自然女声' },{ value: 'male', text: '自然男声' }
-                    ]},
-                    { key: 'quality', label: '画质', options: [
-                        { value: '1080', text: '1080p' },{ value: '720', text: '720p' },{ value: '4k', text: '4K' }
+                    { key: 'voice', label: '配音', options: [
+                        { value: 'clone', text: '克隆' },{ value: 'female', text: '女声' },
+                        { value: 'male', text: '男声' },{ value: 'auto', text: '自动' },{ value: 'off', text: '关闭' }
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'text', value: '帮我擦除画面中的字幕和水印，再帮我把字幕翻译成' },
-                    { type: 'inline', configKey: 'targetLang' },
-                    { type: 'text', value: '，进行配音，生成一个新的视频给我' }
+                    { type: 'text', value: '擦除原字幕，翻译并重新配音，生成完整的译制视频' }
                 ]
             },
             generate: {
-                name: 'AI 生成', icon: '✨', url: 'generate.html', cssClass: 'generate',
-                placeholder: '输入视频生成描述词，例如：一只可爱的狗在公园里奔跑，阳光明媚，电影感，高清',
+                name: '视频制作', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>', url: 'generate.html', cssClass: 'generate',
+                placeholder: '写下你的视频内容，我会自动拆成分镜逐段制作',
                 keywords: ['生成','创作','脚本','广告','故事','vlog','文案','制作视频','做一个视频','generate','create','动画'],
                 config: [
-                    { key: 'style', label: '风格', options: [
-                        { value: 'cinematic', text: '电影感' },{ value: 'realistic', text: '写实' },
-                        { value: 'anime', text: '动画' },{ value: 'cyber', text: '赛博朋克' }
+                    { key: 'resolution', label: '清晰度', options: [
+                        { value: '1080', text: '1080p' },{ value: '720', text: '720p' },
+                        { value: '2k', text: '2K' },{ value: '4k', text: '4K' }
                     ]},
-                    { key: 'ratio', label: '比例', options: [
+                    { key: 'ratio', label: '画面比例', options: [
                         { value: '16:9', text: '16:9' },{ value: '9:16', text: '9:16' },{ value: '1:1', text: '1:1' }
-                    ]},
-                    { key: 'duration', label: '时长', options: [
-                        { value: '4', text: '4秒' },{ value: '8', text: '8秒' },{ value: '15', text: '15秒' }
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'editable', placeholder: '描述你想要的画面，如：一只猫在雨中的东京街头漫步，霓虹灯倒影，电影感' },
-                    { type: 'text', value: '，' },
-                    { type: 'inline', configKey: 'style' },
-                    { type: 'text', value: '风格' }
+                    { type: 'text', value: '我会把内容拆成分镜，逐段生成画面 👇' },
+                    { type: 'editable', placeholder: '写下视频内容，比如：一个咖啡品牌的30秒广告，从咖啡豆到杯中拿铁…' }
                 ]
             },
             livestream: {
-                name: '直播剪辑', icon: '🔴', url: 'livestream.html', cssClass: 'livestream',
-                placeholder: '描述直播剪辑需求，比如"提取带货高光片段"...',
+                name: '直播剪辑', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>', url: 'livestream.html', cssClass: 'livestream',
+                placeholder: '粘贴直播链接，自动帮你剪精彩片段',
                 keywords: ['直播','监控','剪辑','录像','高光','精彩片段','抖音','快手','bilibili','带货','livestream'],
                 config: [
                     { key: 'category', label: '类型', options: [
-                        { value: 'sports', text: '赛事直播' },{ value: 'ecommerce', text: '电商带货' },
-                        { value: 'game', text: '游戏直播' },{ value: 'knowledge', text: '知识分享' },
-                        { value: 'entertainment', text: '娱乐综艺' }
-                    ]},
-                    { key: 'platform', label: '平台', options: [
-                        { value: 'douyin', text: '抖音' },{ value: 'kuaishou', text: '快手' },
-                        { value: 'bilibili', text: 'B站' },{ value: 'other', text: '其他' }
-                    ]},
-                    { key: 'clipDuration', label: '时长', options: [
-                        { value: '60', text: '1分钟' },{ value: '30', text: '30秒' },{ value: '180', text: '3分钟' }
+                        { value: 'sports', text: '赛事' },{ value: 'ecommerce', text: '带货' },
+                        { value: 'game', text: '游戏' },{ value: 'knowledge', text: '知识' },
+                        { value: 'entertainment', text: '综艺' }
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'text', value: '我这是一场' },
-                    { type: 'inline', configKey: 'category' },
-                    { type: 'text', value: '，检测到直播流开播时，帮我自动生成高光片段，我来进行剪辑' }
+                    { type: 'text', value: '实时监控直播流，自动识别高光时刻并生成精彩片段' }
                 ]
             },
             /* --- 子功能（不显示顶部卡片） --- */
             erase: {
-                name: '字幕擦除', icon: '🧹', url: 'translate-v7.html', cssClass: 'erase', sub: true,
-                placeholder: '描述你需要擦除的内容，比如"擦除画面中的字幕和水印"...',
+                name: '字幕擦除', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16l8-8 6 6-4 4"/><line x1="6" y1="20" x2="20" y2="20"/></svg>', url: 'translate-v7.html', cssClass: 'erase', sub: true,
+                placeholder: '上传视频后，我会自动检测并擦除画面中的文字',
                 keywords: ['擦除','去除','水印','去水印','字幕擦除','erase','remove','去字幕','清除'],
                 config: [
                     { key: 'eraseTarget', label: '擦除目标', options: [
                         { value: 'subtitle_watermark', text: '字幕+水印' },{ value: 'subtitle', text: '仅字幕' },
                         { value: 'watermark', text: '仅水印' },{ value: 'custom', text: '自定义区域' }
                     ]},
-                    { key: 'quality', label: '画质', options: [
-                        { value: '1080', text: '1080p' },{ value: '720', text: '720p' },{ value: '4k', text: '4K' }
+                    { key: 'eraseMethod', label: '擦除方式', options: [
+                        { value: 'auto', text: 'AI 自动检测' },{ value: 'manual', text: '指定区域' }
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'text', value: '帮我擦除视频画面中的' },
-                    { type: 'inline', configKey: 'eraseTarget' },
-                    { type: 'text', value: '，输出干净的视频' }
+                    { type: 'text', value: '擦除画面中的字幕和水印，输出干净无遮挡的视频' }
                 ]
             },
             subtitle: {
-                name: '添加字幕', icon: '💬', url: 'translate-v7.html', cssClass: 'subtitle', sub: true,
-                placeholder: '描述你需要的字幕，比如"给视频添加中英双语字幕"...',
+                name: '添加字幕', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="6" y1="15" x2="14" y2="15"/><line x1="6" y1="19" x2="18" y2="19"/></svg>', url: 'translate-v7.html', cssClass: 'subtitle', sub: true,
+                placeholder: '上传视频后，我会自动识别语音并生成字幕',
                 keywords: ['加字幕','添加字幕','字幕','subtitle','srt','硬字幕','软字幕','双语字幕','嵌入字幕'],
                 config: [
                     { key: 'subtitleLang', label: '字幕语言', options: [
@@ -1796,19 +1905,19 @@
                     { key: 'subtitleStyle', label: '字幕样式', options: [
                         { value: 'default', text: '标准白底' },{ value: 'cinematic', text: '电影感' },
                         { value: 'pop', text: '综艺花字' },{ value: 'minimal', text: '极简' }
+                    ]},
+                    { key: 'subtitleFormat', label: '字幕输出', options: [
+                        { value: 'burn', text: '嵌入视频' },{ value: 'srt', text: 'SRT文件' },
+                        { value: 'vtt', text: 'VTT文件' },{ value: 'ass', text: 'ASS文件' }
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'text', value: '帮我给视频添加' },
-                    { type: 'inline', configKey: 'subtitleLang' },
-                    { type: 'text', value: '字幕，使用' },
-                    { type: 'inline', configKey: 'subtitleStyle' },
-                    { type: 'text', value: '风格' }
+                    { type: 'text', value: '识别视频语音，自动生成字幕并嵌入视频' }
                 ]
             },
             voiceover: {
-                name: '添加配音', icon: '🎙️', url: 'translate-v7.html', cssClass: 'voiceover', sub: true,
-                placeholder: '描述你需要的配音，比如"用自然女声给视频配音"...',
+                name: '添加配音', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>', url: 'translate-v7.html', cssClass: 'voiceover', sub: true,
+                placeholder: '上传视频，自动生成配音',
                 keywords: ['配音','加配音','添加配音','voiceover','dubbing','tts','语音','朗读','旁白','解说'],
                 config: [
                     { key: 'voiceType', label: '音色', options: [
@@ -1822,28 +1931,19 @@
                     ]}
                 ],
                 promptTemplate: [
-                    { type: 'text', value: '帮我用' },
-                    { type: 'inline', configKey: 'voiceType' },
-                    { type: 'text', value: '给视频添加' },
-                    { type: 'inline', configKey: 'voiceLang' },
-                    { type: 'text', value: '配音' }
+                    { type: 'text', value: '根据字幕内容自动生成配音，替换原始音轨' }
                 ]
             }
         };
 
-        // 收集 promptTemplate 中被 inline 引用的 configKey
-        function getInlineKeys(sk) {
-            var tpl = skills[sk] && skills[sk].promptTemplate;
-            if (!tpl) return [];
-            return tpl.filter(function(t) { return t.type === 'inline'; }).map(function(t) { return t.configKey; });
-        }
+        // inline 下拉已移除，所有配置项统一在 toolbar 展示
+        function getInlineKeys(sk) { return []; }
 
         var detectedSkill = null, skillConfirmed = false, uploadedFile = null, refImage = null, liveLink = '', configValues = {};
         var inputEl = document.getElementById('mainInput');
         var configBar = document.getElementById('configBar');
         var attachBar = document.getElementById('attachBar');
         var submitBtn = document.getElementById('submitBtn');
-        var toolbarDivider = document.getElementById('toolbarDivider');
 
         document.querySelectorAll('.skill-item[data-skill]').forEach(function(el) {
             el.addEventListener('click', function() {
@@ -1855,28 +1955,43 @@
         function selectSkill(sk) {
             detectedSkill = sk; skillConfirmed = true; configValues = {};
             // 初始化所有 configValues
-            skills[sk].config.forEach(function(c) { configValues[c.key] = c.options[0].value; });
+            skills[sk].config.forEach(function(c) {
+                if (c.type === 'dual') {
+                    configValues[c.key+'_src'] = c.left.options[0].value;
+                    configValues[c.key+'_tgt'] = c.right.options[0].value;
+                } else if (c.type === 'grouped') {
+                    configValues[c.key] = c.groups[0].options[0].value;
+                } else {
+                    configValues[c.key] = c.options[0].value;
+                }
+            });
             updateUI(); renderConfig(sk); renderSkillTag(); renderAttachBar();
             renderPromptTemplate(sk);
             var photo = document.getElementById('crewGroupPhoto');
             // 清除所有技能相关 class
-            photo.classList.remove('skill-active', 'skill-translate', 'skill-solo', 'skill-erase', 'skill-subtitle', 'skill-voiceover');
+            photo.classList.remove('skill-active', 'skill-translate', 'skill-generate', 'skill-livestream', 'skill-solo', 'skill-erase', 'skill-subtitle', 'skill-voiceover');
             photo.classList.add('skill-active');
             var soloSkills = ['erase', 'subtitle', 'voiceover'];
             if (sk === 'translate') {
                 photo.classList.add('skill-translate');
+            } else if (sk === 'generate') {
+                photo.classList.add('skill-generate');
+            } else if (sk === 'livestream') {
+                photo.classList.add('skill-livestream');
             } else if (soloSkills.indexOf(sk) !== -1) {
                 photo.classList.add('skill-solo', 'skill-' + sk);
             }
         }
         function clearSkill() {
+            var hadTemplate = inputEl.classList.contains('has-template');
             detectedSkill = null; skillConfirmed = false; configValues = {};
             configBar.innerHTML = ''; updateUI(); renderSkillTag(); renderAttachBar();
-            // 清空富文本输入区
-            inputEl.innerHTML = '';
+            if (hadTemplate) {
+                inputEl.innerHTML = '';
+            }
             inputEl.classList.remove('has-template');
-            inputEl.setAttribute('data-placeholder', '描述你想做的事，或直接选择上方技能');
-            document.getElementById('crewGroupPhoto').classList.remove('skill-active', 'skill-translate', 'skill-solo', 'skill-erase', 'skill-subtitle', 'skill-voiceover');
+            inputEl.setAttribute('data-placeholder', '描述你想做的事，比如「把这个视频翻译成英语」');
+            document.getElementById('crewGroupPhoto').classList.remove('skill-active', 'skill-translate', 'skill-generate', 'skill-livestream', 'skill-solo', 'skill-erase', 'skill-subtitle', 'skill-voiceover');
         }
         function updateUI() {
             document.querySelectorAll('.skill-item').forEach(function(el) {
@@ -1902,74 +2017,6 @@
             tpl.forEach(function(seg) {
                 if (seg.type === 'text') {
                     inputEl.appendChild(document.createTextNode(seg.value));
-                } else if (seg.type === 'inline') {
-                    var cfg = s.config.find(function(c) { return c.key === seg.configKey; });
-                    if (!cfg) return;
-                    // 创建内联下拉胶囊
-                    var span = document.createElement('span');
-                    span.className = 'prompt-drop';
-                    span.setAttribute('contenteditable', 'false');
-                    span.setAttribute('data-key', cfg.key);
-                    span.setAttribute('data-theme', theme);
-
-                    var valSpan = document.createElement('span');
-                    valSpan.className = 'pd-value';
-                    valSpan.textContent = cfg.options[0].text;
-                    span.appendChild(valSpan);
-
-                    var arrow = document.createElement('span');
-                    arrow.className = 'pd-arrow';
-                    arrow.textContent = '▾';
-                    span.appendChild(arrow);
-
-                    // 构建下拉菜单
-                    var menu = document.createElement('div');
-                    menu.className = 'pd-menu';
-                    cfg.options.forEach(function(opt, idx) {
-                        var btn = document.createElement('button');
-                        btn.className = 'pd-menu-item' + (idx === 0 ? ' selected' : '');
-                        btn.setAttribute('data-value', opt.value);
-                        btn.setAttribute('data-text', opt.text);
-                        btn.textContent = opt.text;
-                        btn.addEventListener('click', function(e) {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            configValues[cfg.key] = opt.value;
-                            valSpan.textContent = opt.text;
-                            menu.querySelectorAll('.pd-menu-item').forEach(function(b) { b.classList.remove('selected'); });
-                            btn.classList.add('selected');
-                            menu.classList.remove('show');
-                            span.classList.remove('open');
-                            // 同步更新底部 toolbar 对应的 capsule（如果存在）
-                            syncToolbarCapsule(cfg.key, opt.value, opt.text);
-                        });
-                        menu.appendChild(btn);
-                    });
-                    span.appendChild(menu);
-
-                    // 点击胶囊切换菜单（fixed 定位，避免 overflow 裁剪）
-                    span.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        var isOpen = menu.classList.contains('show');
-                        closeAllInlineDrops();
-                        if (!isOpen) {
-                            menu.classList.add('show');
-                            span.classList.add('open');
-                            // 计算 fixed 位置：胶囊上方居中
-                            var rect = span.getBoundingClientRect();
-                            var menuW = menu.offsetWidth || 100;
-                            var left = rect.left + rect.width / 2 - menuW / 2;
-                            // 防止超出左右屏幕
-                            if (left < 8) left = 8;
-                            if (left + menuW > window.innerWidth - 8) left = window.innerWidth - 8 - menuW;
-                            menu.style.left = left + 'px';
-                            menu.style.top = (rect.top - 6) + 'px';
-                            menu.style.transform = 'translateY(-100%)';
-                        }
-                    });
-
-                    inputEl.appendChild(span);
                 } else if (seg.type === 'editable') {
                     // 可编辑占位符块 — 用户直接在此输入内容
                     var editSpan = document.createElement('span');
@@ -2003,32 +2050,7 @@
             }
         }
 
-        function closeAllInlineDrops() {
-            document.querySelectorAll('.pd-menu.show').forEach(function(m) { m.classList.remove('show'); });
-            document.querySelectorAll('.prompt-drop.open').forEach(function(s) { s.classList.remove('open'); });
-        }
-
-        // 同步内联下拉 → 底部 toolbar capsule
-        function syncToolbarCapsule(key, value, text) {
-            var cap = configBar.querySelector('.cfg-capsule[data-key="' + key + '"]');
-            if (!cap) return;
-            cap.querySelector('.cfg-value').textContent = text;
-            cap.querySelectorAll('.cfg-drop-item').forEach(function(d) {
-                d.classList.toggle('selected', d.dataset.value === value);
-            });
-            var def = detectedSkill && skills[detectedSkill].config.find(function(c) { return c.key === key; });
-            cap.classList.toggle('modified', def && value !== def.options[0].value);
-        }
-
-        // 同步底部 toolbar capsule → 内联下拉
-        function syncInlineDrop(key, value, text) {
-            var drop = inputEl.querySelector('.prompt-drop[data-key="' + key + '"]');
-            if (!drop) return;
-            drop.querySelector('.pd-value').textContent = text;
-            drop.querySelectorAll('.pd-menu-item').forEach(function(b) {
-                b.classList.toggle('selected', b.dataset.value === value);
-            });
-        }
+        function closeAllInlineDrops() { /* inline 已移除，保留空函数兼容 */ }
 
         // 从富文本输入区提取纯文本 prompt
         function extractPromptText() {
@@ -2050,7 +2072,7 @@
             if (!detectedSkill) {
                 /* 占位胶囊：选择技能 */
                 var pickerHtml = '<div class="skill-tag skill-tag--placeholder" id="skillPicker">' +
-                    '<span class="skill-tag-icon">⚡</span>' +
+                    '<span class="skill-tag-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>' +
                     '<span class="skill-tag-name">选择技能</span>' +
                     '<span class="skill-tag-arrow">▾</span>' +
                     '<div class="skill-picker-drop" id="skillPickerDrop">' +
@@ -2090,7 +2112,6 @@
                         }
                     });
                 }, 0);
-                toolbarDivider.style.display = '';
                 return;
             }
             var s = skills[detectedSkill];
@@ -2104,21 +2125,65 @@
                 configBar.querySelector('.skill-tag').insertAdjacentHTML('afterend', '<div class="skill-tag-divider"></div>');
             }
             configBar.querySelector('.skill-tag-close').addEventListener('click', function(e) { e.stopPropagation(); clearSkill(); });
-            toolbarDivider.style.display = '';
         }
 
         function renderConfig(sk) {
             var allConfig = skills[sk].config;
             var theme = skills[sk].cssClass;
-            var inlineKeys = getInlineKeys(sk);
-            // 底部 toolbar 只渲染没有被内联引用的 config
-            var toolbarConfig = allConfig.filter(function(c) { return inlineKeys.indexOf(c.key) === -1; });
-            // 确保 configValues 包含所有 config 默认值（含 inline 的）
+            /* helper: get flat options from grouped or normal config */
+            function flatOpts(c) {
+                if (c.type === 'grouped') {
+                    var arr = [];
+                    c.groups.forEach(function(g) { arr = arr.concat(g.options); });
+                    return arr;
+                }
+                return c.options || [];
+            }
             allConfig.forEach(function(c) {
-                if (!(c.key in configValues)) configValues[c.key] = c.options[0].value;
+                if (c.type === 'dual') {
+                    if (!(c.key+'_src' in configValues)) configValues[c.key+'_src'] = c.left.options[0].value;
+                    if (!(c.key+'_tgt' in configValues)) configValues[c.key+'_tgt'] = c.right.options[0].value;
+                } else {
+                    var opts = flatOpts(c);
+                    if (opts.length && !(c.key in configValues)) configValues[c.key] = opts[0].value;
+                }
             });
             configBar.querySelectorAll('.cfg-capsule').forEach(function(el) { el.remove(); });
-            var html = toolbarConfig.map(function(c) {
+            var html = allConfig.map(function(c) {
+                if (c.type === 'dual') {
+                    var dispText = c.left.options[0].text + ' → ' + c.right.options[0].text;
+                    return '<div class="cfg-capsule" data-key="' + c.key + '" data-theme="' + theme + '" data-type="dual">' +
+                        '<span class="cfg-value">' + dispText + '</span>' +
+                        '<span class="cfg-arrow">▾</span>' +
+                        '<div class="cfg-dropdown"><div class="cfg-dual">' +
+                        '<div class="cfg-dual-col" data-side="src"><div class="cfg-dual-label">' + esc(c.left.label) + '</div>' +
+                        c.left.options.map(function(o, i) {
+                            return '<button class="cfg-drop-item' + (i === 0 ? ' selected' : '') + '" data-value="' + o.value + '" data-text="' + esc(o.text) + '">' + esc(o.text) + '</button>';
+                        }).join('') + '</div>' +
+                        '<div class="cfg-dual-col" data-side="tgt"><div class="cfg-dual-label">' + esc(c.right.label) + '</div>' +
+                        c.right.options.map(function(o, i) {
+                            return '<button class="cfg-drop-item' + (i === 0 ? ' selected' : '') + '" data-value="' + o.value + '" data-text="' + esc(o.text) + '">' + esc(o.text) + '</button>';
+                        }).join('') + '</div>' +
+                        '</div></div></div>';
+                }
+                if (c.type === 'grouped') {
+                    var firstOpt = c.groups[0].options[0];
+                    var groupLabel = c.groups[0].label;
+                    return '<div class="cfg-capsule" data-key="' + c.key + '" data-theme="' + theme + '" data-type="grouped">' +
+                        '<span class="cfg-value">' + esc(c.label) + ' · ' + esc(firstOpt.text) + '</span>' +
+                        '<span class="cfg-arrow">▾</span>' +
+                        '<div class="cfg-dropdown">' +
+                        c.groups.map(function(g) {
+                            return '<div class="cfg-drop-group">' +
+                                '<div class="cfg-drop-group-label">' + esc(g.label) + '</div>' +
+                                g.options.map(function(o) {
+                                    var sel = (o.value === firstOpt.value) ? ' selected' : '';
+                                    return '<button class="cfg-drop-item' + sel + '" data-value="' + o.value + '" data-text="' + esc(o.text) + '" data-group="' + esc(g.label) + '">' + esc(o.text) + '</button>';
+                                }).join('') +
+                                '</div>';
+                        }).join('') +
+                        '</div></div>';
+                }
                 return '<div class="cfg-capsule" data-key="' + c.key + '" data-theme="' + theme + '">' +
                     '<span class="cfg-value">' + c.options[0].text + '</span>' +
                     '<span class="cfg-arrow">▾</span>' +
@@ -2136,21 +2201,45 @@
                     closeDropdowns();
                     if (!open) { dd.classList.add('show'); cap.classList.add('open'); }
                 });
-                cap.querySelectorAll('.cfg-drop-item').forEach(function(item) {
-                    item.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        var key = cap.dataset.key;
-                        configValues[key] = item.dataset.value;
-                        cap.querySelector('.cfg-value').textContent = item.dataset.text;
-                        cap.querySelectorAll('.cfg-drop-item').forEach(function(d) { d.classList.remove('selected'); });
-                        item.classList.add('selected');
-                        var def = skills[detectedSkill].config.find(function(c) { return c.key === key; });
-                        cap.classList.toggle('modified', def && item.dataset.value !== def.options[0].value);
-                        closeDropdowns();
-                        // 同步内联下拉
-                        syncInlineDrop(key, item.dataset.value, item.dataset.text);
+                if (cap.dataset.type === 'dual') {
+                    cap.querySelectorAll('.cfg-dual-col').forEach(function(col) {
+                        col.querySelectorAll('.cfg-drop-item').forEach(function(item) {
+                            item.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                var side = col.dataset.side;
+                                var key = cap.dataset.key + '_' + side;
+                                configValues[key] = item.dataset.value;
+                                col.querySelectorAll('.cfg-drop-item').forEach(function(d) { d.classList.remove('selected'); });
+                                item.classList.add('selected');
+                                var srcEl = cap.querySelector('[data-side="src"] .cfg-drop-item.selected');
+                                var tgtEl = cap.querySelector('[data-side="tgt"] .cfg-drop-item.selected');
+                                cap.querySelector('.cfg-value').textContent = (srcEl ? srcEl.dataset.text : '') + ' → ' + (tgtEl ? tgtEl.dataset.text : '');
+                            });
+                        });
                     });
-                });
+                } else {
+                    cap.querySelectorAll('.cfg-drop-item').forEach(function(item) {
+                        item.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            var key = cap.dataset.key;
+                            configValues[key] = item.dataset.value;
+                            var groupText = item.dataset.group;
+                            var valText = item.dataset.text;
+                            if (groupText) {
+                                var cfgDef = skills[detectedSkill].config.find(function(c2) { return c2.key === key; });
+                                cap.querySelector('.cfg-value').textContent = (cfgDef ? cfgDef.label + ' · ' : '') + valText;
+                            } else {
+                                cap.querySelector('.cfg-value').textContent = valText;
+                            }
+                            cap.querySelectorAll('.cfg-drop-item').forEach(function(d) { d.classList.remove('selected'); });
+                            item.classList.add('selected');
+                            var def = skills[detectedSkill].config.find(function(c2) { return c2.key === key; });
+                            var firstVal = def ? (def.type === 'grouped' ? def.groups[0].options[0].value : def.options[0].value) : null;
+                            cap.classList.toggle('modified', firstVal !== null && item.dataset.value !== firstVal);
+                            closeDropdowns();
+                        });
+                    });
+                }
             });
         }
 
@@ -2174,7 +2263,7 @@
             if (bestScore > 0 && best !== detectedSkill) {
                 detectedSkill = best; skillConfirmed = false;
                 updateUI(); renderConfig(best); renderSkillTag(); renderAttachBar();
-            } else if (bestScore === 0) { clearSkill(); }
+            } else if (bestScore === 0 && detectedSkill) { clearSkill(); }
         });
 
         // 防止 contenteditable 在回车时插入 div/br
@@ -2197,7 +2286,6 @@
 
         var nudgeToast = document.getElementById('nudgeToast');
         var inputBox = document.getElementById('inputBox');
-        var uploadBtnEl = document.getElementById('uploadBtn');
 
         submitBtn.addEventListener('click', handleSubmit);
 
@@ -2215,7 +2303,7 @@
             var text = extractPromptText();
             var url = skills[sk].url;
             var params = ['autostart=1'];
-            // 子功能映射到 translate-v7.html 的 mode 参数
+            // 子功能映射到 translate-v8.html 的 mode 参数
             var modeMap = { erase: 'erase', subtitle: 'subtitle', voiceover: 'voice' };
             if (modeMap[sk]) params.push('mode=' + modeMap[sk]);
             if (text) params.push('prompt=' + encodeURIComponent(text));
@@ -2243,15 +2331,6 @@
             fi.onchange = function(e) { var f = e.target.files[0]; if (!f) return; uploadedFile = f; refImage = null; liveLink = ''; renderAttachBar(); inputEl.focus(); };
             fi.click();
         }
-        uploadBtnEl.addEventListener('click', function() {
-            nudgeToast.classList.remove('show');
-            var fi = document.createElement('input');
-            fi.type = 'file'; fi.accept = 'video/*,image/*,.mp4,.mov,.avi,.mkv';
-            fi.onchange = function(e) { var f = e.target.files[0]; if (!f) return;
-                if (f.type.startsWith('image/')) { refImage = f; uploadedFile = null; } else { uploadedFile = f; refImage = null; }
-                liveLink = ''; renderAttachBar();
-            }; fi.click();
-        });
         function renderAttachBar() {
             attachBar.innerHTML = '';
             if (uploadedFile) {
@@ -2262,7 +2341,43 @@
                 attachBar.innerHTML = '<div class="attach-guide attach-guide--translate" id="guideAddVideo"><span class="attach-guide-icon">📹</span><span class="attach-guide-text">点击添加视频文件</span><span class="attach-guide-arrow">→</span></div>';
                 document.getElementById('guideAddVideo').onclick = triggerUpload;
             } else if (detectedSkill === 'livestream') {
-                attachBar.innerHTML = '<div class="attach-guide attach-guide--livestream" id="guideAddLink"><span class="attach-guide-icon">🔗</span><span class="attach-guide-text">点击添加直播链接</span><span class="attach-guide-arrow">→</span></div>';
+                attachBar.innerHTML = '<div class="live-link-bar' + (liveLink ? ' has-link' : '') + '" id="liveLinkBar">' +
+                    '<span class="live-link-icon">🔗</span>' +
+                    '<input class="live-link-input" id="liveLinkInput" type="text" placeholder="直播链接" value="' + esc(liveLink) + '">' +
+                    '<button class="live-link-paste" id="liveLinkPaste"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>粘贴</button>' +
+                    '<button class="live-link-confirm" id="liveLinkConfirm"' + (liveLink ? '' : ' disabled') + '>确定</button>' +
+                    '</div>';
+                var linkInput = document.getElementById('liveLinkInput');
+                var linkBtn = document.getElementById('liveLinkConfirm');
+                var linkBar = document.getElementById('liveLinkBar');
+                var pasteBtn = document.getElementById('liveLinkPaste');
+                linkInput.addEventListener('input', function() {
+                    var val = this.value.trim();
+                    liveLink = val;
+                    linkBtn.disabled = !val;
+                    linkBar.classList.toggle('has-link', !!val);
+                });
+                pasteBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navigator.clipboard.readText().then(function(text) {
+                        if (text) {
+                            linkInput.value = text.trim();
+                            liveLink = text.trim();
+                            linkBtn.disabled = !liveLink;
+                            linkBar.classList.toggle('has-link', !!liveLink);
+                            linkInput.focus();
+                        }
+                    }).catch(function() {});
+                });
+                linkInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') { e.preventDefault(); if (liveLink) linkBtn.click(); }
+                });
+                linkInput.addEventListener('click', function(e) { e.stopPropagation(); });
+                linkBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (!liveLink) return;
+                    inputEl.focus();
+                });
             }
         }
         function esc(s) { var d = document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
@@ -2388,21 +2503,21 @@
         box-shadow: 0 8px 28px rgba(0,0,0,0.35);
     }
     .min-task-card.task-processing {
-        border-color: rgba(245,158,11,0.35);
-        box-shadow: 0 0 16px rgba(245,158,11,0.08);
+        border-color: rgba(100,116,139,0.35);
+        box-shadow: 0 0 16px rgba(100,116,139,0.08);
     }
     .min-task-card.task-processing:hover {
-        border-color: rgba(245,158,11,0.55);
-        box-shadow: 0 0 24px rgba(245,158,11,0.15);
+        border-color: rgba(100,116,139,0.55);
+        box-shadow: 0 0 24px rgba(100,116,139,0.15);
     }
     .min-task-card.task-done {
-        border-color: rgba(16,185,129,0.35);
-        background: rgba(16,185,129,0.06);
+        border-color: rgba(100,116,139,0.35);
+        background: rgba(255,255,255,0.04);
     }
     .min-task-card.task-done:hover {
-        border-color: rgba(16,185,129,0.55);
-        background: rgba(16,185,129,0.1);
-        box-shadow: 0 0 20px rgba(16,185,129,0.12);
+        border-color: rgba(100,116,139,0.55);
+        background: rgba(255,255,255,0.06);
+        box-shadow: 0 0 20px rgba(100,116,139,0.12);
     }
 
     .mt-avatar-stack {
@@ -2416,9 +2531,10 @@
         border-radius: 50%;
         border: 2px solid rgba(18,18,28,0.9);
         object-fit: cover;
+        object-position: top;
         margin-left: -8px;
         position: relative;
-        background: rgba(99,102,241,0.15);
+        background: #fff;
     }
     .mt-avatar-stack img:first-child { margin-left: 0; }
     .task-processing .mt-avatar-stack img:first-child {
@@ -2601,7 +2717,7 @@
                 return '<div class="min-task-card ' + cardClass + '" data-task-id="' + task.id + '">' +
                     '<div class="mt-avatar-stack">' + avatarHtml + '</div>' +
                     '<div class="mt-text">' +
-                        '<span class="mt-name">视频译制工作小组（4）</span>' +
+                        '<span class="mt-name">视频译制工作小组（5）</span>' +
                         '<span class="mt-status">' + statusText + '</span>' +
                     '</div>' +
                     '<button class="mt-close" data-dismiss="' + task.id + '" title="关闭任务"><svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M3 3L11 11M11 3L3 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>' +

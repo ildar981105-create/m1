@@ -67,8 +67,8 @@
     transition: all 0.3s;
 }
 .task-progress-count.done {
-    background: rgba(16,185,129,0.1);
-    color: #34d399;
+    background: rgba(148,163,184,0.1);
+    color: #94a3b8;
 }
 .task-progress-chevron {
     font-size: 0.6rem;
@@ -95,7 +95,7 @@
 }
 .task-progress-overview-fill {
     height: 100%;
-    background: linear-gradient(90deg, #10b981, #34d399);
+    background: linear-gradient(90deg, #64748b, #94a3b8);
     border-radius: 1px;
     transition: width 0.5s ease;
 }
@@ -228,19 +228,19 @@
 
 /* ——— 状态：done ——— */
 .task-step--done .task-step-dot {
-    background: #10b981;
-    border: 1.5px solid rgba(16,185,129,0.5);
+    background: #64748b;
+    border: 1.5px solid rgba(100,116,139,0.5);
 }
 .task-step--done .task-step-line {
-    background: rgba(16,185,129,0.25);
+    background: rgba(100,116,139,0.25);
 }
 .task-step--done .task-step-label {
     color: var(--text-faint);
     opacity: 0.55;
 }
 .task-step--done .task-step-badge {
-    background: rgba(16,185,129,0.1);
-    color: #34d399;
+    background: rgba(148,163,184,0.1);
+    color: #94a3b8;
 }
 
 /* 全部完成时的完成标记 */
@@ -251,7 +251,7 @@
     gap: 5px;
     padding: 4px 0 2px;
     font-size: 0.6rem;
-    color: #34d399;
+    color: #94a3b8;
     opacity: 0.7;
     animation: allDoneFade 0.5s ease;
 }
@@ -399,14 +399,14 @@
     to { opacity: 1; transform: scale(1); }
 }
 .pbi-switch-tag--translate {
-    background: rgba(16,185,129,0.12);
-    color: #34d399;
-    border: 1px solid rgba(16,185,129,0.25);
+    background: rgba(148,163,184,0.12);
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.25);
 }
 .pbi-switch-tag--livestream {
-    background: rgba(239,68,68,0.12);
-    color: #f87171;
-    border: 1px solid rgba(239,68,68,0.25);
+    background: rgba(148,163,184,0.12);
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.25);
 }
 .pbi-switch-tag--generate {
     background: rgba(168,85,247,0.12);
