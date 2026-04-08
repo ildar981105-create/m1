@@ -22,7 +22,7 @@ button{cursor:pointer;font-family:inherit}
 .v8-bg-sync{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
 .v8-bg-sync-inner{position:absolute;aspect-ratio:1920/1080;min-width:100%;min-height:100%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 .v8-page.ft-mode .v8-bg-sync{display:none}
-.v8-page.lights-off .v8-bg-sync{position:absolute;inset:0;overflow:visible}
+.v8-page.lights-off .v8-bg-sync{position:absolute;inset:0;overflow:visible;z-index:51}
 .v8-page.lights-off .v8-bg-sync-inner{position:static;min-width:0;min-height:0;width:0;height:0;transform:none;top:auto;left:auto}
 
 /* === 返回按钮 === */
@@ -51,7 +51,7 @@ button{cursor:pointer;font-family:inherit}
 @keyframes dp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
 
 /* === 视频小窗（在背景同步层内） === */
-.v8-vid{position:absolute;z-index:10;pointer-events:auto;top:9.5%;left:30%;width:26.5%;height:30%;border-radius:2px;overflow:hidden;background:#000;box-shadow:none;transition:all .6s cubic-bezier(0.4,0,0.2,1)}
+.v8-vid{position:absolute;z-index:10;pointer-events:auto;top:14%;left:32.2%;width:15.9%;height:18.1%;border-radius:2px;overflow:hidden;background:#000;box-shadow:none;transition:all .6s cubic-bezier(0.4,0,0.2,1)}
 .v8-vid video{width:100%;height:100%;object-fit:cover;display:block}
 .v8-vid .v8-vid-label{position:absolute;bottom:8px;left:8px;padding:3px 10px;border-radius:6px;background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);font-size:.68rem;color:#cbd5e1}
 .v8-page.ft-mode .v8-scrub{display:none}
@@ -142,7 +142,7 @@ button{cursor:pointer;font-family:inherit}
 
 .chat-bubble--user{align-self:flex-end;max-width:80%;padding:10px 16px;border-radius:14px;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;font-size:.82rem;line-height:1.6}
 .chat-join-msg{display:flex;align-items:center;gap:8px;justify-content:center;font-size:.7rem;color:var(--glass-text3);padding:8px 0;animation:bi .4s ease}
-.join-avatars{display:flex}.join-avatars img{width:22px;height:22px;border-radius:8px;margin-left:-6px;border:2px solid rgba(255,255,255,0.6);background:#fff;object-fit:cover;object-position:top}.join-avatars img:first-child{margin-left:0}
+.join-avatars{display:flex}.join-avatars img{width:22px;height:22px;border-radius:8px;margin-left:-6px;border:none;background:transparent;object-fit:cover;object-position:top}.join-avatars img:first-child{margin-left:0}
 
 /* 进度卡 */
 .role-progress-card{padding:6px 0 0;border-radius:0;background:none;border:none;margin-top:2px}
@@ -178,7 +178,7 @@ button{cursor:pointer;font-family:inherit}
 
 /* === 精调模式整体布局 === */
 .v8-page.ft-mode .v8-back{opacity:0;pointer-events:none}
-.v8-ft-layout{position:absolute;inset:0;z-index:30;display:none;grid-template-columns:1fr 380px;grid-template-rows:1fr minmax(180px,auto);gap:10px;padding:10px;background:#0a0a0f;opacity:0;transition:all .5s cubic-bezier(0.4,0,0.2,1)}
+.v8-ft-layout{position:absolute;inset:0;z-index:30;display:none;grid-template-columns:1fr 380px;grid-template-rows:1fr minmax(240px,auto);gap:10px;padding:10px;background:#0a0a0f;opacity:0;transition:all .5s cubic-bezier(0.4,0,0.2,1)}
 .v8-page.ft-mode .v8-ft-layout{display:grid;opacity:1}
 
 /* 左上：视频卡片 */
@@ -188,13 +188,12 @@ button{cursor:pointer;font-family:inherit}
 /* 左下：时间线卡片 */
 .v8-ft-tl-card{grid-column:1;grid-row:2;border-radius:14px;background:#111318;border:1px solid rgba(255,255,255,0.06);overflow:hidden;display:flex;flex-direction:column}
 .v8-ft-tl-card .v8-tlc{padding:8px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
-.v8-ft-tl-card .v8-tls{padding:10px 0;flex:1;min-height:60px}
-.v8-ft-tl-card .v8-ruler{border-top:1px solid var(--border);flex-shrink:0}
+.v8-ft-tl-card .v8-ruler{border-bottom:1px solid var(--border)}
+.v8-ft-tl-card .v8-tls{padding:8px 0 0;flex:1;min-height:80px}
 .v8-ft-tl-card .v8-trk{display:block;position:relative;height:32px;padding:0 14px 0 80px;margin-bottom:4px}
 .v8-ft-tl-card .v8-trk.hidden{display:none}
 .v8-ft-tl-card .v8-trk-l{left:10px}
 .v8-ft-tl-card .v8-ph{left:80px}
-.v8-ft-tl-card .v8-ruler{padding:0 14px 0 80px}
 
 /* 右侧：精调面板卡片 */
 .v8-ft-right-card{grid-column:2;grid-row:1/3;border-radius:14px;background:#111318;border:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;overflow:hidden}
@@ -318,17 +317,18 @@ button{cursor:pointer;font-family:inherit}
 .v8-seg-h--r{right:-3px}
 .v8-ph{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);z-index:5;pointer-events:none;left:80px;transition:left .1s linear}
 .v8-ph::before{content:'';position:absolute;top:-2px;left:-4px;width:10px;height:6px;background:var(--accent);clip-path:polygon(0 0,100% 0,50% 100%)}
-.v8-ruler{position:relative;height:18px;padding:0 12px 0 80px;border-top:1px solid var(--border)}
+.v8-ruler{position:relative;height:22px;padding:0 14px 0 80px;flex-shrink:0}
+.v8-ruler-inner{position:relative;width:100%;height:100%}
 .v8-rm{position:absolute;display:flex;flex-direction:column;align-items:center}
-.v8-rm .tick{width:1px;height:6px;background:rgba(255,255,255,0.15)}
-.v8-rm .tl{font-size:.55rem;color:var(--text4)}
+.v8-rm .tick{width:1px;height:8px;background:rgba(255,255,255,0.15);order:2}
+.v8-rm .tl{font-size:.55rem;color:var(--text4);order:1;margin-bottom:1px}
 
 /* === 步骤闪光 === */
-.v8-flash{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0}
+.v8-flash{position:absolute;inset:0;z-index:15;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:0}
 .v8-flash.active{animation:sf 1.2s ease forwards}
 @keyframes sf{0%{opacity:0}15%{opacity:1}60%{opacity:1}100%{opacity:0}}
-.v8-flash-b{display:flex;align-items:center;gap:8px;padding:10px 24px;border-radius:14px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);font-size:.85rem;font-weight:600;color:#e2e8f0}
-.v8-flash-d{width:8px;height:8px;border-radius:50%}
+.v8-flash-b{display:flex;align-items:center;gap:6px;padding:6px 16px;border-radius:10px;background:rgba(0,0,0,0.7);backdrop-filter:blur(12px);font-size:.72rem;font-weight:600;color:#e2e8f0}
+.v8-flash-d{width:7px;height:7px;border-radius:50%}
 
 /* === 关灯暗幕 === */
 .v8-dim{position:absolute;inset:0;z-index:50;pointer-events:none;opacity:0;transition:opacity .8s}
@@ -384,6 +384,7 @@ button{cursor:pointer;font-family:inherit}
         <div class="v8-subp" id="subPreview"><span class="so"></span><span class="st"></span></div>
         <div class="v8-vp" id="voicePreview">🎙️ AI 配音中</div>
         <div class="v8-ec" id="eraseOC"></div>
+        <div class="v8-flash" id="stepFlash"><div class="v8-flash-b"><span class="v8-flash-d" id="flashDot"></span><span id="flashText">步骤完成</span></div></div>
         <span class="v8-vid-label" id="cmpResLabel" style="display:none;position:absolute;top:10px;left:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);color:#e2e8f0;font-weight:600">成片</span>
         <div class="v8-scrub" id="scrub">
             <button class="v8-sp" id="scrubPlay">
@@ -431,13 +432,13 @@ button{cursor:pointer;font-family:inherit}
                 <button class="v8-tlp" id="tlPlay"><svg class="tp-play" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 1.5L10 6L3 10.5V1.5Z" fill="currentColor"/></svg><svg class="tp-pause" width="12" height="12" viewBox="0 0 12 12" fill="none" style="display:none"><rect x="2" y="1" width="3" height="10" rx=".5" fill="currentColor"/><rect x="7" y="1" width="3" height="10" rx=".5" fill="currentColor"/></svg></button>
                 <div class="v8-tlt" id="tlTime"><span class="cur">00:00</span> / 01:30</div>
             </div>
+            <div class="v8-ruler" id="tlRuler"></div>
             <div class="v8-tls" id="tlTracks">
                 <div class="v8-trk" data-track="erase"><span class="v8-trk-l">擦除</span><div class="v8-trk-c"></div></div>
                 <div class="v8-trk" data-track="subtitle"><span class="v8-trk-l">字幕</span><div class="v8-trk-c"></div></div>
                 <div class="v8-trk" data-track="voice"><span class="v8-trk-l">配音</span><div class="v8-trk-c"></div></div>
                 <div class="v8-ph" id="tlPlayhead"></div>
             </div>
-            <div class="v8-ruler" id="tlRuler"></div>
         </div>
 
         <!-- 右侧：精调面板卡片 -->
@@ -509,9 +510,6 @@ button{cursor:pointer;font-family:inherit}
             </div>
         </div>
     </div>
-
-    <!-- 闪光 -->
-    <div class="v8-flash" id="stepFlash"><div class="v8-flash-b"><span class="v8-flash-d" id="flashDot"></span><span id="flashText">步骤完成</span></div></div>
 
     <!-- 暗幕 -->
     <div class="v8-dim" id="dimmer">

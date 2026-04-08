@@ -859,10 +859,12 @@ function clearFtTimeline(){
 }
 
 function buildRuler(){
-    const el=document.getElementById('tlRuler');el.innerHTML='';
+    const el=document.getElementById('tlRuler');
+    el.innerHTML='<div class="v8-ruler-inner" id="tlRulerInner"></div>';
+    const inner=document.getElementById('tlRulerInner');
     for(let s=0;s<=videoDuration;s+=15){
         const pct=(s/videoDuration)*100;const mk=document.createElement('div');mk.className='v8-rm';mk.style.left=pct+'%';
-        mk.innerHTML='<span class="tl">'+fmt(s)+'</span><span class="tick"></span>';el.appendChild(mk);
+        mk.innerHTML='<span class="tl">'+fmt(s)+'</span><span class="tick"></span>';inner.appendChild(mk);
     }
 }
 buildRuler();
@@ -881,7 +883,7 @@ function updateTimeline(){
     if(sf)sf.style.width=pct+'%';if(st)st.style.left=pct+'%';
     if(stm)stm.innerHTML='<span style="color:#fff">'+fmt(videoTime)+'</span> / '+fmt(videoDuration);
     const tlt=document.getElementById('tlTime');if(tlt)tlt.innerHTML='<span class="cur">'+fmt(videoTime)+'</span> / '+fmt(videoDuration);
-    const trks=document.getElementById('tlTracks');if(trks){const tw=trks.offsetWidth;const cw=tw-80-20;tlPlayhead.style.left=(80+(pct/100)*cw)+'px'}
+    const trks=document.getElementById('tlTracks');if(trks){const tw=trks.offsetWidth;const cw=tw-80-14;tlPlayhead.style.left=(80+(pct/100)*cw)+'px'}
 }
 function tick(){
     if(playing){videoTime+=1/60;if(videoTime>=videoDuration)videoTime=0;if(videoEl.paused)videoEl.play().catch(()=>{})}
