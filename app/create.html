@@ -761,6 +761,33 @@
         padding: 3px 10px 2px; font-size: 0.55rem; font-weight: 600;
         color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em;
     }
+    /* 自定义区域表单（下拉内嵌） */
+    .cfg-custom-form {
+        display: none; padding: 8px 10px; margin: 4px 0 2px;
+        background: rgba(255,255,255,0.03); border-radius: 8px;
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+    .cfg-custom-form.show { display: block; }
+    .cfg-custom-row {
+        display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
+    .cfg-custom-row:last-child { margin-bottom: 0; }
+    .cfg-custom-label {
+        font-size: 0.55rem; color: var(--text-faint); font-weight: 500;
+        min-width: 24px; text-align: right;
+    }
+    .cfg-custom-input {
+        flex: 1; padding: 4px 6px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.04); color: var(--text-primary); font-size: 0.6rem;
+        font-family: inherit; outline: none; transition: border-color 0.2s; min-width: 0;
+    }
+    .cfg-custom-input:focus { border-color: rgba(99,102,241,0.4); }
+    .cfg-custom-input::placeholder { color: var(--text-faint); }
+    .cfg-custom-hint {
+        font-size: 0.5rem; color: var(--text-faint); padding: 0 2px; margin-top: 2px;
+    }
+    [data-theme="light"] .cfg-custom-form { background: rgba(0,0,0,0.02); border-color: rgba(0,0,0,0.06); }
+    [data-theme="light"] .cfg-custom-input { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.1); color: #1e293b; }
     .cfg-drop-item {
         display: flex; align-items: center; gap: 6px; width: 100%; padding: 5px 10px;
         font-size: 0.66rem; font-weight: 500; color: var(--text-muted);
@@ -2011,16 +2038,19 @@
             },
             /* --- 子功能（不显示顶部卡片） --- */
             erase: {
-                name: '字幕擦除', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16l8-8 6 6-4 4"/><line x1="6" y1="20" x2="20" y2="20"/></svg>', url: 'translate-v7.html', cssClass: 'erase', sub: true,
+                name: '字幕擦除', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16l8-8 6 6-4 4"/><line x1="6" y1="20" x2="20" y2="20"/></svg>', url: 'translate-v8.html', cssClass: 'erase', sub: true,
                 placeholder: '上传视频后，我会自动检测并擦除画面中的文字',
                 keywords: ['擦除','去除','水印','去水印','字幕擦除','erase','remove','去字幕','清除'],
                 config: [
-                    { key: 'eraseTarget', label: '擦除目标', options: [
-                        { value: 'subtitle_watermark', text: '字幕+水印' },{ value: 'subtitle', text: '仅字幕' },
-                        { value: 'watermark', text: '仅水印' },{ value: 'custom', text: '自定义区域' }
-                    ]},
-                    { key: 'eraseMethod', label: '擦除方式', options: [
-                        { value: 'auto', text: 'AI 自动检测' },{ value: 'manual', text: '指定区域' }
+                    { key: 'eraseTarget', label: '擦除目标', type: 'grouped', groups: [
+                        { label: '自动检测', options: [
+                            { value: 'subtitle_watermark', text: '字幕+水印' },
+                            { value: 'subtitle', text: '仅字幕' },
+                            { value: 'watermark', text: '仅水印' }
+                        ]},
+                        { label: '手动指定', options: [
+                            { value: 'custom', text: '自定义区域' }
+                        ]}
                     ]}
                 ],
                 promptTemplate: [
@@ -2028,21 +2058,26 @@
                 ]
             },
             subtitle: {
-                name: '添加字幕', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="6" y1="15" x2="14" y2="15"/><line x1="6" y1="19" x2="18" y2="19"/></svg>', url: 'translate-v7.html', cssClass: 'subtitle', sub: true,
+                name: '添加字幕', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="6" y1="15" x2="14" y2="15"/><line x1="6" y1="19" x2="18" y2="19"/></svg>', url: 'translate-v8.html', cssClass: 'subtitle', sub: true,
                 placeholder: '上传视频后，我会自动识别语音并生成字幕',
                 keywords: ['加字幕','添加字幕','字幕','subtitle','srt','硬字幕','软字幕','双语字幕','嵌入字幕'],
                 config: [
-                    { key: 'subtitleLang', label: '字幕语言', options: [
+                    { key: 'subtitleLang', label: '语言', options: [
                         { value: 'zh', text: '中文' },{ value: 'en', text: '英语' },{ value: 'zh_en', text: '中英双语' },
                         { value: 'ja', text: '日语' },{ value: 'ko', text: '韩语' }
                     ]},
-                    { key: 'subtitleStyle', label: '字幕样式', options: [
-                        { value: 'default', text: '标准白底' },{ value: 'cinematic', text: '电影感' },
-                        { value: 'pop', text: '综艺花字' },{ value: 'minimal', text: '极简' }
-                    ]},
-                    { key: 'subtitleFormat', label: '字幕输出', options: [
-                        { value: 'burn', text: '嵌入视频' },{ value: 'srt', text: 'SRT文件' },
-                        { value: 'vtt', text: 'VTT文件' },{ value: 'ass', text: 'ASS文件' }
+                    { key: 'subtitleOutput', label: '字幕', type: 'grouped', groups: [
+                        { label: '压制', options: [
+                            { value: 'burn_default', text: '标准' },
+                            { value: 'burn_cinematic', text: '电影' },
+                            { value: 'burn_variety', text: '花字' },
+                            { value: 'burn_minimal', text: '极简' }
+                        ]},
+                        { label: '文件', options: [
+                            { value: 'file_srt', text: 'SRT' },
+                            { value: 'file_vtt', text: 'VTT' },
+                            { value: 'file_ass', text: 'ASS' }
+                        ]}
                     ]}
                 ],
                 promptTemplate: [
@@ -2050,14 +2085,13 @@
                 ]
             },
             voiceover: {
-                name: '添加配音', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>', url: 'translate-v7.html', cssClass: 'voiceover', sub: true,
+                name: '添加配音', icon: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>', url: 'translate-v8.html', cssClass: 'voiceover', sub: true,
                 placeholder: '上传视频，自动生成配音',
                 keywords: ['配音','加配音','添加配音','voiceover','dubbing','tts','语音','朗读','旁白','解说'],
                 config: [
                     { key: 'voiceType', label: '音色', options: [
-                        { value: 'auto', text: '自动匹配' },{ value: 'clone', text: '声音克隆' },
-                        { value: 'female', text: '自然女声' },{ value: 'male', text: '自然男声' },
-                        { value: 'child', text: '童声' }
+                        { value: 'clone', text: '克隆音色' },{ value: 'female', text: '女声' },
+                        { value: 'male', text: '男声' },{ value: 'auto', text: '自动' }
                     ]},
                     { key: 'voiceLang', label: '语言', options: [
                         { value: 'zh', text: '中文' },{ value: 'en', text: '英语' },
@@ -2302,7 +2336,13 @@
                 }
                 if (c.type === 'grouped') {
                     var firstOpt = c.groups[0].options[0];
-                    var groupLabel = c.groups[0].label;
+                    var hasCustom = false;
+                    c.groups.forEach(function(g) { g.options.forEach(function(o) { if (o.value === 'custom') hasCustom = true; }); });
+                    var customFormHtml = hasCustom ? '<div class="cfg-custom-form" id="cfgCustomForm_' + c.key + '">' +
+                        '<div class="cfg-custom-hint">指定擦除区域的位置和大小（百分比）</div>' +
+                        '<div class="cfg-custom-row"><span class="cfg-custom-label">X</span><input class="cfg-custom-input" type="number" placeholder="0" min="0" max="100" data-cf="x" value="10"><span class="cfg-custom-label">Y</span><input class="cfg-custom-input" type="number" placeholder="0" min="0" max="100" data-cf="y" value="80"></div>' +
+                        '<div class="cfg-custom-row"><span class="cfg-custom-label">宽</span><input class="cfg-custom-input" type="number" placeholder="100" min="1" max="100" data-cf="w" value="80"><span class="cfg-custom-label">高</span><input class="cfg-custom-input" type="number" placeholder="10" min="1" max="100" data-cf="h" value="12"></div>' +
+                        '</div>' : '';
                     return '<div class="cfg-capsule" data-key="' + c.key + '" data-theme="' + theme + '" data-type="grouped">' +
                         '<span class="cfg-value">' + esc(c.label) + ' · ' + esc(firstOpt.text) + '</span>' +
                         '<span class="cfg-arrow">▾</span>' +
@@ -2316,6 +2356,7 @@
                                 }).join('') +
                                 '</div>';
                         }).join('') +
+                        customFormHtml +
                         '</div></div>';
                 }
                 return '<div class="cfg-capsule" data-key="' + c.key + '" data-theme="' + theme + '">' +
@@ -2370,7 +2411,31 @@
                             var def = skills[detectedSkill].config.find(function(c2) { return c2.key === key; });
                             var firstVal = def ? (def.type === 'grouped' ? def.groups[0].options[0].value : def.options[0].value) : null;
                             cap.classList.toggle('modified', firstVal !== null && item.dataset.value !== firstVal);
-                            closeDropdowns();
+                            /* 自定义区域表单：选 custom 时展开，其他收起 */
+                            var customForm = cap.querySelector('.cfg-custom-form');
+                            if (customForm) {
+                                if (item.dataset.value === 'custom') {
+                                    customForm.classList.add('show');
+                                } else {
+                                    customForm.classList.remove('show');
+                                    closeDropdowns();
+                                }
+                            } else {
+                                closeDropdowns();
+                            }
+                        });
+                    });
+                    /* 阻止自定义表单内的 input 点击冒泡关闭下拉 */
+                    cap.querySelectorAll('.cfg-custom-input').forEach(function(inp) {
+                        inp.addEventListener('click', function(e) { e.stopPropagation(); });
+                        inp.addEventListener('input', function() {
+                            var key = cap.dataset.key;
+                            var form = cap.querySelector('.cfg-custom-form');
+                            if (form) {
+                                var vals = {};
+                                form.querySelectorAll('.cfg-custom-input').forEach(function(f) { vals[f.dataset.cf] = f.value; });
+                                configValues[key + '_custom'] = vals;
+                            }
                         });
                     });
                 }
