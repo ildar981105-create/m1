@@ -417,7 +417,7 @@ function exitFinetune(){
 }
 
 document.querySelectorAll('.v8-done-fp').forEach(btn=>{btn.addEventListener('click',()=>{if(inFinetune)exitFinetune()})});
-document.getElementById('ftCancel').addEventListener('click',()=>{if(inFinetune)exitFinetune()});
+document.querySelectorAll('.v8-cancel-fp').forEach(btn=>{btn.addEventListener('click',()=>{if(inFinetune)exitFinetune()})});
 
 /* ===== Tabs ===== */
 function unlockTab(step){unlockedTabs[step]=true;const t=document.getElementById('tab'+step.charAt(0).toUpperCase()+step.slice(1));if(t){t.classList.remove('locked');t.classList.add('unlocked')}}

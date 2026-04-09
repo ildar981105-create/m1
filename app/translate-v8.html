@@ -285,8 +285,9 @@ button{cursor:pointer;font-family:inherit}
 .fie-save,.fie-cancel{padding:5px 12px;border-radius:6px;font-size:.7rem;font-weight:500;cursor:pointer;border:none;transition:all .2s}
 .fie-save{background:var(--accent);color:#fff}.fie-save:hover{filter:brightness(1.1)}
 .fie-cancel{background:rgba(255,255,255,0.06);color:var(--text2);border:1px solid var(--border)}.fie-cancel:hover{background:rgba(255,255,255,0.1)}
-.v8-done{padding:0;margin-top:20px;flex-shrink:0}
-.v8-done-btn{width:100%;padding:13px;border-radius:var(--rs);background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 16px rgba(59,130,246,0.3)}
+.v8-done{padding:0;margin-top:20px;flex-shrink:0;display:flex;gap:8px;align-items:center}
+.v8-done .v8-ft-cancel{flex-shrink:0}
+.v8-done-btn{flex:1;padding:13px;border-radius:var(--rs);background:linear-gradient(135deg,#3b82f6,#2563eb);border:none;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 16px rgba(59,130,246,0.3)}
 .v8-done-btn:hover{filter:brightness(1.1);box-shadow:0 6px 20px rgba(59,130,246,0.4)}
 
 /* === 时间线（精调卡片内） === */
@@ -605,7 +606,6 @@ button{cursor:pointer;font-family:inherit}
         <!-- 右侧：精调面板卡片 -->
         <div class="v8-ft-right-card" id="ftRightCard">
             <div class="v8-ft-topbar">
-                <button class="v8-ft-cancel" id="ftCancel"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>退出</button>
                 <div class="v8-ft-topbar-left">
                     <div><div class="v8-ftt" id="ftTitle">擦除精调</div><div class="v8-ftd" id="ftDesc">调整擦除区域和参数</div></div>
                 </div>
@@ -621,7 +621,7 @@ button{cursor:pointer;font-family:inherit}
                         <div class="v8-fsl">擦除区域 <span class="ft-count" id="eCount">8</span></div>
                         <div id="eList"></div>
                         <button class="v8-add" id="eAddBtn">+ 添加区域</button>
-                        <div class="v8-done"><button class="v8-done-btn v8-done-fp" id="ftDoneErase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
+                        <div class="v8-done"><button class="v8-ft-cancel v8-cancel-fp" id="ftCancelErase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>退出</button><button class="v8-done-btn v8-done-fp" id="ftDoneErase"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
                     </div>
                     <div class="v8-fp" data-fp="subtitle">
                         <div class="v8-ft-global" id="subGlobal">
@@ -648,7 +648,7 @@ button{cursor:pointer;font-family:inherit}
                         <div class="v8-fsl" style="margin-top:10px">字幕列表 <span class="ft-count">7</span></div>
                         <div id="sList"></div>
                         <button class="v8-add" id="sAddBtn">+ 添加字幕</button>
-                        <div class="v8-done"><button class="v8-done-btn v8-done-fp" id="ftDoneSub"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
+                        <div class="v8-done"><button class="v8-ft-cancel v8-cancel-fp" id="ftCancelSub"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>退出</button><button class="v8-done-btn v8-done-fp" id="ftDoneSub"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
                     </div>
                     <div class="v8-fp" data-fp="voice">
                         <div class="v8-ft-global" id="voiceGlobal">
@@ -665,7 +665,7 @@ button{cursor:pointer;font-family:inherit}
                         <div class="v8-fsl" style="margin-top:10px">配音列表 <span class="ft-count">7</span></div>
                         <div id="vList"></div>
                         <button class="v8-add" id="vAddBtn">+ 添加配音</button>
-                        <div class="v8-done"><button class="v8-done-btn v8-done-fp" id="ftDoneVoice"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
+                        <div class="v8-done"><button class="v8-ft-cancel v8-cancel-fp" id="ftCancelVoice"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>退出</button><button class="v8-done-btn v8-done-fp" id="ftDoneVoice"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 8L7 9.5L10.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>完成精调</button></div>
                     </div>
                 </div>
             </div>
