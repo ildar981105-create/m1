@@ -395,59 +395,85 @@ button{cursor:pointer;font-family:inherit}
     .chat-bubble--user { max-width: 85% !important; }
     .role-progress-card { font-size: 0.72rem !important; }
 
-    /* --- 精调模式：全屏纵向，不需要双栏 --- */
+    /* --- 精调模式：纯列表，全屏接管 --- */
     .v8-ft-layout {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: 30vh auto 1fr !important;
-        padding: 6px !important; gap: 6px !important;
+        display: flex !important; flex-direction: column !important;
+        padding: 0 !important; gap: 0 !important;
     }
-    .v8-ft-video-card {
-        grid-column: 1 !important; grid-row: 1 !important;
-        border-radius: 10px !important; min-height: 0 !important;
-    }
+    /* 视频和时间线完全隐藏 */
+    .v8-ft-video-card { display: none !important; }
+    .v8-ft-tl-card { display: none !important; }
 
-    /* --- 时间线卡片：极简 --- */
-    .v8-ft-tl-card {
-        grid-column: 1 !important; grid-row: 2 !important;
-        border-radius: 10px !important; min-height: 0 !important;
-    }
-    .v8-ft-tl-card .v8-tlc { padding: 5px 10px !important; }
-    .v8-ft-tl-card .v8-trk { height: 24px !important; padding: 0 10px 0 52px !important; margin-bottom: 2px !important; }
-    .v8-ft-tl-card .v8-trk-l { font-size: 0.52rem !important; width: 40px !important; left: 6px !important; }
-    .v8-ft-tl-card .v8-ruler { padding: 0 10px 0 52px !important; height: 18px !important; }
-    .v8-ft-tl-card .v8-ph { left: 52px !important; }
-    .v8-rm .tl { font-size: 0.48rem !important; }
-
-    /* --- 精调面板：全屏列表 --- */
+    /* 精调面板全屏 */
     .v8-ft-right-card {
-        grid-column: 1 !important; grid-row: 3 !important;
-        border-radius: 10px !important; max-height: none !important;
-        overflow-y: auto !important;
+        flex: 1 !important; border-radius: 0 !important;
+        max-height: none !important; overflow-y: auto !important;
+        background: #0a0a0f !important; border: none !important;
     }
-    .v8-ft-right-card .v8-ft-topbar { padding: 8px 12px 6px !important; }
-    .v8-ft-right-card .v8-ftt { font-size: 0.8rem !important; }
-    .v8-ft-right-card .v8-ftd { font-size: 0.62rem !important; }
-    .v8-ft-cancel { font-size: 0.68rem !important; padding: 5px 10px !important; }
-    .v8-tabs { padding: 0 12px !important; }
-    .v8-tab { font-size: 0.68rem !important; padding: 7px 10px !important; }
-    .v8-ftc { padding: 10px 12px !important; }
-    .v8-done-btn { padding: 10px !important; font-size: 0.76rem !important; border-radius: 10px !important; }
+    .v8-ft-right-card .v8-ft-topbar {
+        position: sticky !important; top: 0 !important; z-index: 10 !important;
+        padding: 12px 16px 8px !important;
+        background: rgba(10,10,15,0.95) !important;
+        backdrop-filter: blur(16px) !important;
+        border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+    }
+    .v8-ft-right-card .v8-ftt { font-size: 0.88rem !important; }
+    .v8-ft-right-card .v8-ftd { font-size: 0.65rem !important; }
+    .v8-ft-cancel { font-size: 0.72rem !important; padding: 6px 12px !important; }
+    .v8-tabs {
+        position: sticky !important; top: 44px !important; z-index: 9 !important;
+        padding: 0 16px !important;
+        background: rgba(10,10,15,0.95) !important;
+        backdrop-filter: blur(16px) !important;
+    }
+    .v8-tab { font-size: 0.72rem !important; padding: 8px 12px !important; }
+    .v8-ftc { padding: 12px 16px 100px !important; }
 
-    /* --- 精调列表项紧凑 --- */
-    .fsi, .fvi, .fei { font-size: 0.7rem !important; padding: 8px !important; }
-    .fsi-t, .fvi-t { font-size: 0.62rem !important; }
-    .fie { padding: 8px !important; }
-    .fiei { font-size: 0.68rem !important; }
-    .fie-s, .fie-e { width: 48px !important; font-size: 0.65rem !important; }
-    .fiel { font-size: 0.62rem !important; min-width: 44px !important; }
-    .v8-fsl { font-size: 0.65rem !important; }
-    .v8-add { font-size: 0.68rem !important; padding: 8px !important; }
+    /* 完成按钮吸底 */
+    .v8-done {
+        position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important;
+        padding: 10px 16px !important; margin: 0 !important;
+        background: rgba(10,10,15,0.95) !important;
+        backdrop-filter: blur(16px) !important;
+        border-top: 1px solid rgba(255,255,255,0.06) !important;
+        z-index: 20 !important;
+    }
+    .v8-done-btn { padding: 12px !important; font-size: 0.8rem !important; border-radius: 12px !important; }
 
-    /* --- 全局配置条（精调内） --- */
-    .v8-ft-global { padding: 8px !important; border-radius: 8px !important; }
-    .v8-ftg-group { flex-wrap: wrap !important; gap: 4px !important; }
-    .v8-ftg-label { font-size: 0.62rem !important; }
-    .v8-ftg-capsule select { font-size: 0.62rem !important; padding: 2px 4px !important; }
+    /* --- 精调列表项：卡片化，更易触控 --- */
+    .fsi, .fvi, .fei {
+        font-size: 0.75rem !important; padding: 10px 12px !important;
+        border-radius: 10px !important; margin-bottom: 6px !important;
+    }
+    .fsi-t, .fvi-t { font-size: 0.65rem !important; min-width: 40px !important; }
+    .fsi-tx, .fvi-tx { font-size: 0.72rem !important; }
+    /* 编辑/删除按钮更大便于触控 */
+    .fsi-eb, .fvi-del, .fvi-p, .fei-del {
+        width: 32px !important; height: 32px !important;
+        display: flex !important; align-items: center !important; justify-content: center !important;
+    }
+
+    /* 内联编辑面板 */
+    .fie {
+        padding: 12px !important; margin: 4px 0 8px !important;
+        border-radius: 10px !important;
+    }
+    .fier { margin-bottom: 8px !important; }
+    .fiel { font-size: 0.68rem !important; min-width: 48px !important; }
+    .fiei { font-size: 0.75rem !important; padding: 8px 10px !important; border-radius: 8px !important; }
+    .fie-s, .fie-e { width: 56px !important; font-size: 0.72rem !important; padding: 8px 6px !important; border-radius: 8px !important; }
+    .fie-actions { gap: 8px !important; margin-top: 10px !important; }
+    .fie-save, .fie-cancel { padding: 8px 16px !important; font-size: 0.75rem !important; border-radius: 8px !important; }
+
+    /* 区域列表标题 */
+    .v8-fsl { font-size: 0.7rem !important; margin-bottom: 8px !important; }
+    .v8-add { font-size: 0.72rem !important; padding: 10px !important; border-radius: 10px !important; }
+
+    /* 全局配置条 */
+    .v8-ft-global { padding: 10px 12px !important; border-radius: 10px !important; margin-bottom: 8px !important; }
+    .v8-ftg-group { flex-wrap: wrap !important; gap: 6px !important; }
+    .v8-ftg-label { font-size: 0.68rem !important; }
+    .v8-ftg-capsule select { font-size: 0.68rem !important; padding: 4px 6px !important; border-radius: 6px !important; }
 
     /* --- 关灯模式 --- */
     .v8-page.lights-off .v8-vid {
@@ -478,10 +504,11 @@ button{cursor:pointer;font-family:inherit}
 @media (max-width: 480px) {
     .v8-vid { width: 50% !important; }
     .v8-chat { height: calc(100vh - 100px) !important; }
-    .v8-ft-layout { grid-template-rows: 25vh auto 1fr !important; }
     .v8-page.lights-off .v8-vid { width: 94% !important; }
     .v8-page.compare-mode .v8-vid { width: 92% !important; }
     .v8-cmp { width: 92% !important; }
+    .v8-ft-right-card .v8-ftt { font-size: 0.82rem !important; }
+    .fsi, .fvi, .fei { padding: 8px 10px !important; }
 }
 </style>
 </head>
