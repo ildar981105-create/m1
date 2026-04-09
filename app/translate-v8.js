@@ -178,26 +178,19 @@ function buildConfigChat(){
     const tgt='英语';const sc=eraseRegions.filter(r=>r.title.includes('字幕')).length;const wc=eraseRegions.filter(r=>r.title.includes('水印')).length;
     stepSubTasks={
         erase:[
-            {label:'全帧预扫描…',doneLabel:'扫描完成',phase:'全帧预扫描…',status:'pending',duration:2500},
-            {label:'字幕区域检测…',doneLabel:'检测到 '+sc+' 处字幕',phase:'字幕区域检测…',status:'pending',duration:3000},
-            {label:'逐帧擦除中…',doneLabel:sc+' 处字幕擦除中…',phase:'逐帧擦除字幕…',status:'pending',duration:3500},
-            {label:'字幕擦除收尾…',doneLabel:'已擦除 '+sc+' 处字幕',phase:'字幕擦除收尾…',status:'pending',duration:2500},
-            {label:'水印区域检测…',doneLabel:'检测到 '+wc+' 处水印',phase:'水印区域检测…',status:'pending',duration:2000},
-            {label:'擦除水印…',doneLabel:'已擦除 '+wc+' 处水印',phase:'擦除水印…',status:'pending',duration:2500}
+            {label:'扫描画面…',doneLabel:'发现 '+sc+' 处字幕、'+wc+' 处水印',phase:'扫描画面…',status:'pending',duration:3500},
+            {label:'擦除字幕…',doneLabel:'已擦除 '+sc+' 处字幕',phase:'擦除字幕…',status:'pending',duration:4000},
+            {label:'擦除水印…',doneLabel:'已擦除 '+wc+' 处水印，画面干净了',phase:'擦除水印…',status:'pending',duration:3000}
         ],
         subtitle:[
-            {label:'通篇听取原声…',doneLabel:'原声听取完成',phase:'通篇听取原声…',status:'pending',duration:3000},
-            {label:'语音片段切分…',doneLabel:'识别 '+subtitleItems.length+' 条语音',phase:'语音片段切分…',status:'pending',duration:3000},
-            {label:'逐句翻译 → '+tgt+'…',doneLabel:'翻译中…',phase:'逐句翻译 → '+tgt+'…',status:'pending',duration:3500},
-            {label:'术语一致性校验…',doneLabel:'已翻译 '+subtitleItems.length+' 条',phase:'术语一致性校验…',status:'pending',duration:2500},
-            {label:'字幕排版对齐…',doneLabel:'生成 '+subtitleItems.length+' 条新字幕',phase:'字幕排版对齐…',status:'pending',duration:2000}
+            {label:'识别语音…',doneLabel:'识别出 '+subtitleItems.length+' 段语音',phase:'识别语音…',status:'pending',duration:3500},
+            {label:'翻译成'+tgt+'…',doneLabel:'已翻译 '+subtitleItems.length+' 条字幕',phase:'翻译成'+tgt+'…',status:'pending',duration:4000},
+            {label:'排版压制…',doneLabel:'字幕生成完成',phase:'排版压制…',status:'pending',duration:2500}
         ],
         voice:[
-            {label:'感受情绪基调～',doneLabel:'情绪分析完成',phase:'感受情绪基调～',status:'pending',duration:2500},
-            {label:'情绪标记中～',doneLabel:'分析完成 '+voiceItems.length+' 段',phase:'情绪标记中～',status:'pending',duration:2500},
-            {label:'音色克隆中～',doneLabel:'音色采样完成',phase:'音色克隆中～',status:'pending',duration:3000},
-            {label:tgt+'配音录制中～',doneLabel:'录制中…',phase:tgt+'配音录制中～',status:'pending',duration:3500},
-            {label:'最后几句录制中～',doneLabel:'已生成 '+voiceItems.length+' 段配音',phase:tgt+'配音收尾～',status:'pending',duration:2500}
+            {label:'分析语气情绪…',doneLabel:'情绪分析完成，'+voiceItems.length+' 段',phase:'分析情绪…',status:'pending',duration:3000},
+            {label:'克隆音色…',doneLabel:'音色采样完成',phase:'克隆音色…',status:'pending',duration:3500},
+            {label:'录制'+tgt+'配音…',doneLabel:'已生成 '+voiceItems.length+' 段配音',phase:'录制配音…',status:'pending',duration:4000}
         ]
     };
     if(workflowMode==='full')activeSteps=['erase','subtitle','voice'];
