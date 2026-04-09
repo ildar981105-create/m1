@@ -201,8 +201,8 @@ button{cursor:pointer;font-family:inherit}
 .v8-ft-right-card .v8-ft-topbar-left{display:flex;align-items:center;gap:8px}
 .v8-ft-right-card .v8-ft-topbar-left .v8-ftt{font-size:.9rem}
 .v8-ft-right-card .v8-ft-topbar-left .v8-ftd{font-size:.68rem;color:var(--text3);margin:0}
-.v8-ft-cancel{padding:6px 14px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text2);font-size:.76rem;cursor:pointer;transition:all .2s}
-.v8-ft-cancel:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+.v8-ft-cancel{padding:6px 14px;border-radius:8px;border:none;background:rgba(239,68,68,0.1);color:#f87171;font-size:.76rem;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px}
+.v8-ft-cancel:hover{background:rgba(239,68,68,0.2);color:#fca5a5}
 
 /* 精调面板内部保留原有 */
 .v8-ftp{position:static;z-index:auto;width:auto;height:auto;display:flex;flex-direction:column;flex:1;background:transparent;border:none;opacity:1;pointer-events:auto;transform:none;transition:none;overflow:hidden}
@@ -341,11 +341,11 @@ button{cursor:pointer;font-family:inherit}
 .v8-dbtn.pri:hover{filter:brightness(1.1)}
 
 /* 对比模式：成片视频缩到上半 */
-.v8-page.compare-mode .v8-vid{top:3%;left:50%;transform:translateX(-50%);width:50%;height:auto;aspect-ratio:16/9;border-radius:10px;box-shadow:0 0 40px rgba(129,140,248,0.2)}
+.v8-page.compare-mode .v8-vid{top:5%;left:50%;transform:translateX(-50%);width:42%;height:auto;aspect-ratio:16/9;border-radius:10px;box-shadow:0 0 40px rgba(129,140,248,0.2)}
 .v8-page.compare-mode .v8-vid .v8-vid-label,.v8-page.compare-mode #cmpResLabel{display:block!important;position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:6px;background:rgba(0,0,0,0.6);font-size:.68rem;color:#e2e8f0;font-weight:600;z-index:5}
 
 /* 对比：原片容器在下半 */
-.v8-cmp{position:absolute;z-index:55;bottom:12%;left:50%;transform:translateX(-50%);width:50%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 30px rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:all .4s}
+.v8-cmp{position:absolute;z-index:55;bottom:14%;left:50%;transform:translateX(-50%);width:42%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 30px rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:all .4s}
 .v8-cmp.active{opacity:1;pointer-events:auto}
 .v8-cmp video{width:100%;height:100%;object-fit:cover}
 .v8-cmp-l{position:absolute;top:8px;left:8px;padding:3px 10px;border-radius:6px;background:rgba(0,0,0,0.6);font-size:.68rem;color:#94a3b8}
@@ -605,10 +605,10 @@ button{cursor:pointer;font-family:inherit}
         <!-- 右侧：精调面板卡片 -->
         <div class="v8-ft-right-card" id="ftRightCard">
             <div class="v8-ft-topbar">
+                <button class="v8-ft-cancel" id="ftCancel"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>退出</button>
                 <div class="v8-ft-topbar-left">
                     <div><div class="v8-ftt" id="ftTitle">擦除精调</div><div class="v8-ftd" id="ftDesc">调整擦除区域和参数</div></div>
                 </div>
-                <button class="v8-ft-cancel" id="ftCancel">取消精调</button>
             </div>
             <div class="v8-ftp" id="ftPanel">
                 <div class="v8-tabs" id="ftTabs">
